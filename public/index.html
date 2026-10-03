@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmos // Enterprise Sovereign Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header -->
+        <header class="header-glass">
+            <div class="logo-group">
+                <span class="badge-cyan">ENTERPRISE ADMIN</span>
+                <h1>COSMOS // Sovereign Mesh Control</h1>
+            </div>
+            <div class="status-indicator">
+                <span class="pulse-dot"></span>
+                <span id="syncStatusText">REAL-TIME LINKAGE ACTIVE</span>
+            </div>
+        </header>
+
+        <!-- Live Telemetry Matrix -->
+        <section class="grid-4">
+            <div class="glass-card metric-card">
+                <div class="metric-title">Sovereign Nodes</div>
+                <div class="metric-value mono" id="metricNodes">14,280</div>
+                <div class="metric-sub">Active Mesh Connections</div>
+            </div>
+            <div class="glass-card metric-card">
+                <div class="metric-title">Mesh Throughput</div>
+                <div class="metric-value mono" id="metricThroughput">18.4 Gbps</div>
+                <div class="metric-sub">E2EE Data Ingest</div>
+            </div>
+            <div class="glass-card metric-card">
+                <div class="metric-title">Average Latency</div>
+                <div class="metric-value mono" id="metricLatency">14.2 ms</div>
+                <div class="metric-sub">Cross-Platform Sync</div>
+            </div>
+            <div class="glass-card metric-card">
+                <div class="metric-title">FFmpeg Workers</div>
+                <div class="metric-value mono" id="metricFFmpeg">12 / 12</div>
+                <div class="metric-sub">H.265 / AV1 Transcode Cluster</div>
+            </div>
+        </section>
+
+        <!-- Admin Controls Grid -->
+        <div class="grid-2">
+            <!-- Remote Config Toggles -->
+            <section class="glass-card">
+                <h2>Remote Feature Toggles</h2>
+                <p class="section-desc">Broadcast real-time state changes to iOS & Android clients via Firebase Remote Config.</p>
+                <div class="toggle-list">
+                    <div class="toggle-item">
+                        <div>
+                            <div class="toggle-label">Spatial Feed & 3D Stage</div>
+                            <div class="toggle-sub">Enable spatial audio positioning and 3D stage</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="flagSpatialFeed" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <div>
+                            <div class="toggle-label">Creator Studio Module</div>
+                            <div class="toggle-sub">Heavy media offloading & 3D mesh decimation</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="flagCreatorStudio" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <div>
+                            <div class="toggle-label">9-Layer Architecture Shield</div>
+                            <div class="toggle-sub">4-Layer Zero-Trust Security Enforcement</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="flagSecurityShield" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <div>
+                            <div class="toggle-label">Dynamic Module Delivery</div>
+                            <div class="toggle-sub">On-demand RAM loading and auto-unloading</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="flagDynamicModules" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Rotation & Security Moderation -->
+            <section class="glass-card">
+                <h2>Cryptographic & Security Moderation</h2>
+                <p class="section-desc">Execute immediate master HKDF key rotation and remote perimeter containment.</p>
+
+                <div class="action-group">
+                    <button class="btn-primary" id="btnRotateKeys">
+                        ⚡ Trigger Master HKDF Key Rotation
+                    </button>
+                    <p class="mono text-xs text-dim" id="keyRotationStatus">Last Rotated: Epoch Key #84920</p>
+                </div>
+
+                <hr class="glass-divider">
+
+                <h3>Perimeter Lock & User Moderation</h3>
+                <div class="form-group">
+                    <input type="text" id="targetIdInput" placeholder="Target User ID or IP Address" class="input-glass">
+                    <div class="btn-group">
+                        <button class="btn-danger" id="btnBanUser">Suspend Account</button>
+                        <button class="btn-secondary" id="btnLockIP">Block IP Perimeter</button>
+                    </div>
+                </div>
+                <div id="moderationFeedback" class="mono text-xs text-cyan"></div>
+            </section>
+        </div>
+
+        <!-- Audit & Logs Stream -->
+        <section class="glass-card">
+            <h2>Real-Time System & Anomaly Audit Feed</h2>
+            <div class="terminal-box mono" id="auditTerminal">
+                <div class="term-line text-cyan">[SYSTEM] Real-time Firestore Sync Engine connected.</div>
+                <div class="term-line">[SECURITY] App Check attestation token validated on iOS and Android clients.</div>
+                <div class="term-line">[FFMPEG] Cluster node #3 processed background matte removal job-matte-9921.</div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
