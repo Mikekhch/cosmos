@@ -2,7 +2,7 @@
 //  SecurityDashboardViewModel.swift
 //  CosmosApp
 //
-//  ViewModel for 4-Layer Security Shield Dashboard
+//  ViewModel for 4-Layer Security Shield & Profile Security Center
 //
 
 import Foundation
@@ -17,6 +17,31 @@ public class SecurityDashboardViewModel: ObservableObject {
     @Published public var testPayloadInput: String = "Top Secret Spatial Coordinates"
     @Published public var encryptedPayloadOutput: String = ""
     @Published public var decryptedPayloadOutput: String = ""
+
+    // Profile Metadata
+    @Published public var userName: String = "Kira Vance"
+    @Published public var userHandle: String = "@kira.spatial"
+    @Published public var trustIndex: String = "99.4%"
+    @Published public var sovereignNodeHash: String = "0x9B4F...4E01"
+    @Published public var userRole: String = "AR Architect & Node Validator"
+    @Published public var validatorLevel: String = "VALIDATOR L4"
+
+    // Passkeys & Biometrics
+    @Published public var isFaceIDEnabled: Bool = true
+    @Published public var isPasskeySynced: Bool = true
+    @Published public var sessionAutoLockTimeout: String = "1 Min"
+
+    // E2EE Privacy & Telemetry
+    @Published public var sessionFingerprintMatrix: [String] = ["E84F", "90A2", "44B1", "77DC"]
+    @Published public var isOnionRelayEnabled: Bool = true
+    @Published public var ephemeralCanvasDuration: String = "24 Hours"
+
+    // Family Mesh & Governance
+    @Published public var adaptiveContentFilter: String = "16+ ACTIVE"
+    @Published public var dailyMicroMintSpentUSD: Double = 11.50
+    @Published public var dailyMicroMintCapUSD: Double = 50.00
+    @Published public var isGuardianApprovalRequired: Bool = true
+    @Published public var curfewHours: String = "22:00 – 07:00"
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -73,5 +98,13 @@ public class SecurityDashboardViewModel: ObservableObject {
             _ = AnomalyDetectionEngine.shared.recordAndAnalyzeMessageSend(payloadSizeBytes: 512)
         }
         recentSecurityEvents = AnomalyDetectionEngine.shared.getSecurityAuditHistory()
+    }
+
+    public func signOutMeshSession() {
+        AppLogger.shared.log("User signed out of mesh session", level: .info)
+    }
+
+    public func emergencyFreezeAllShards() {
+        AppLogger.shared.log("EMERGENCY: All shards and keys frozen", level: .warning)
     }
 }

@@ -2,52 +2,42 @@
 //  MainTabView.swift
 //  CosmosApp
 //
-//  Root View organizing MVVM navigation tabs in Obsidian Glass styling
+//  Root View organizing MVVM navigation tabs in Obsidian Glass styling with custom Glassmorphic Bottom Navigation Bar
 //
 
 import SwiftUI
 
 public struct MainTabView: View {
-    @State private var selectedTab = 0
+    @State private var selectedTab: TabItem = .feed
 
     public init() {}
 
     public var body: some View {
-        TabView(selection: $selectedTab) {
-            SecurityDashboardView()
-                .tabItem {
-                    Label("Security", systemImage: "shield.3c")
+        ZStack(alignment: .bottom) {
+            // Main Tab Views container with NavigationStack
+            NavigationStack {
+                Group {
+                    switch selectedTab {
+                    case .feed:
+                        HomeFeedView()
+                    case .studio:
+                        CreatorStudioView()
+                    case .chat:
+                        SpatialChatView()
+                    case .profile:
+                        SecurityDashboardView()
+                    case .storage:
+                        StorageManagementView()
+                    }
                 }
-                .tag(0)
+                .transition(.opacity.combined(with: .scale(scale: 0.98)))
+            }
 
-            SpatialChatView()
-                .tabItem {
-                    Label("Spatial Chat", systemImage: "bubble.left.and.bubble.right.fill")
-                }
-                .tag(1)
-
-            CreatorStudioView()
-                .tabItem {
-                    Label("Creator Studio", systemImage: "camera.viewfinder")
-                }
-                .tag(2)
-
-            StorageManagementView()
-                .tabItem {
-                    Label("Storage", systemImage: "internaldrive.fill")
-                }
-                .tag(3)
+            // Floating Glassmorphic Bottom Navigation Bar
+            GlassmorphicTabBar(selectedTab: $selectedTab)
+                .padding(.bottom, 12)
         }
-        .accentColor(ObsidianTheme.primaryCyan)
-        .onAppear {
-            // Configure dark translucent tab bar appearance
-            #if os(iOS) && canImport(UIKit)
-            let appearance = UITabBarAppearance()
-            appearance.configureWithDarkBackground()
-            appearance.backgroundColor = UIColor(red: 0.04, green: 0.06, blue: 0.09, alpha: 0.9)
-            UITabBar.appearance().standardAppearance = appearance
-            UITabBar.appearance().scrollEdgeAppearance = appearance
-            #endif
-        }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
+        .background(ObsidianTheme.darkBackground.ignoresSafeArea())
     }
 }
