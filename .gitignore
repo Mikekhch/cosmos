@@ -1,0 +1,10 @@
+.gradle/
+build/
+**/build/
+*.aar
+*.klib
+*.class
+*.pyc
+__pycache__/
+node_modules/
+.DS_Store
