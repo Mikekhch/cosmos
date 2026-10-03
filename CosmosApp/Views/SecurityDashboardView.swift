@@ -18,25 +18,31 @@ public struct SecurityDashboardView: View {
                 // 1. Profile Hero & 3D Interactive Avatar Stage
                 profileHeroStage
 
-                // 2. Enterprise Remote Admin Interface (Phase 3)
+                // 2. Enterprise Remote Admin Interface & Live Dashboard
                 remoteAdminControlsSection
 
-                // 3. Enterprise 4-Layer Security Shield Cards
+                // 3. Cloud FFmpeg Pipeline & Live Network Analytics Monitor
+                cloudFFmpegAnalyticsSection
+
+                // 4. Cryptographic Key Rotation & Security Moderation
+                keyRotationAndModerationSection
+
+                // 5. Enterprise 4-Layer Security Shield Cards
                 enterpriseSecurityShieldSection
 
-                // 4. E2EE Interactive Test Bench & Audit Log
+                // 6. E2EE Interactive Test Bench & Audit Log
                 e2eeTestBenchSection
 
-                // 5. Passkey & Biometric Suite
+                // 7. Passkey & Biometric Suite
                 passkeyBiometricsSection
 
-                // 6. E2EE Privacy Telemetry
+                // 8. E2EE Privacy Telemetry
                 privacyTelemetrySection
 
-                // 7. Family Mesh & Governance Dashboard
+                // 9. Family Mesh & Governance Dashboard
                 familyGovernanceSection
 
-                // 8. Logout & Emergency Lockdown
+                // 10. Logout & Emergency Lockdown
                 emergencyLockdownSection
             }
             .padding(.horizontal, 16)
@@ -178,7 +184,7 @@ public struct SecurityDashboardView: View {
                 StatusBadge(text: "REMOTE CONFIG", color: ObsidianTheme.primaryCyan)
             }
 
-            Text("Wire remote feature flags to dynamically enable/disable feature modules and UI layers without app updates.")
+            Text("Wire remote feature flags to dynamically enable/disable feature modules, security layers, and UI feeds without app updates.")
                 .font(.system(size: 11))
                 .foregroundColor(Color.white.opacity(0.6))
 
@@ -220,7 +226,45 @@ public struct SecurityDashboardView: View {
             .background(Color.black.opacity(0.3))
             .cornerRadius(12)
 
-            // Toggle 3: Maintenance Mode
+            // Toggle 3: E-Commerce Feature
+            Toggle(isOn: Binding(
+                get: { viewModel.isEcommerceEnabled },
+                set: { viewModel.toggleRemoteFlag(flagKey: "isEcommerceEnabled", value: $0) }
+            )) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("E-Commerce & Micro-Mints")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                    Text("Spatial Marketplace Engine")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundColor(Color.white.opacity(0.5))
+                }
+            }
+            .toggleStyle(SwitchToggleStyle(tint: ObsidianTheme.primaryCyan))
+            .padding(10)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(12)
+
+            // Toggle 4: 9 Security Layers Global Toggle
+            Toggle(isOn: Binding(
+                get: { viewModel.isNineLayerShieldActive },
+                set: { viewModel.toggleRemoteFlag(flagKey: "isNineLayerShieldActive", value: $0) }
+            )) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("9-Layer Security Shield Enforcement")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                    Text("Enforces 9-Layer Defense-in-Depth Protocols")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.tertiaryEmerald)
+                }
+            }
+            .toggleStyle(SwitchToggleStyle(tint: ObsidianTheme.tertiaryEmerald))
+            .padding(10)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(12)
+
+            // Toggle 5: Maintenance Mode
             Toggle(isOn: Binding(
                 get: { viewModel.isMaintenanceModeActive },
                 set: { viewModel.toggleRemoteFlag(flagKey: "isMaintenanceModeActive", value: $0) }
@@ -261,6 +305,176 @@ public struct SecurityDashboardView: View {
                         .cornerRadius(12)
                 }
             }
+        }
+        .padding(16)
+        .obsidianGlassCard(cornerRadius: 24)
+    }
+
+    private var cloudFFmpegAnalyticsSection: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack {
+                HStack(spacing: 8) {
+                    Image(systemName: "cpu.fill")
+                        .foregroundColor(ObsidianTheme.secondaryIndigo)
+                    Text("Live Network & FFmpeg Pipeline Monitor")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                Spacer()
+                StatusBadge(text: "LIVE METRICS", color: ObsidianTheme.secondaryIndigo)
+            }
+
+            // Grid Metrics
+            HStack(spacing: 10) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("SOVEREIGN NODES")
+                        .font(.system(size: 9, weight: .bold, design: .monospaced))
+                        .foregroundColor(Color.white.opacity(0.5))
+                    Text("\(viewModel.activeSovereignNodes)")
+                        .font(.system(size: 16, weight: .bold, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.primaryCyan)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("THROUGHPUT")
+                        .font(.system(size: 9, weight: .bold, design: .monospaced))
+                        .foregroundColor(Color.white.opacity(0.5))
+                    Text("\(String(format: "%.1f", viewModel.meshThroughputGbps)) Gbps")
+                        .font(.system(size: 16, weight: .bold, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.tertiaryEmerald)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
+            }
+
+            HStack(spacing: 10) {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("FFMPEG WORKERS")
+                        .font(.system(size: 9, weight: .bold, design: .monospaced))
+                        .foregroundColor(Color.white.opacity(0.5))
+                    Text("\(viewModel.ffmpegActiveWorkers) Workers Active")
+                        .font(.system(size: 13, weight: .bold, design: .monospaced))
+                        .foregroundColor(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("FFMPEG QUEUE")
+                        .font(.system(size: 9, weight: .bold, design: .monospaced))
+                        .foregroundColor(Color.white.opacity(0.5))
+                    Text("\(viewModel.ffmpegQueuedJobs) Transcodes Queued")
+                        .font(.system(size: 13, weight: .bold, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.secondaryIndigo)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                .background(Color.black.opacity(0.3))
+                .cornerRadius(12)
+            }
+        }
+        .padding(16)
+        .obsidianGlassCard(cornerRadius: 24)
+    }
+
+    private var keyRotationAndModerationSection: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack {
+                HStack(spacing: 8) {
+                    Image(systemName: "key.icu.fill")
+                        .foregroundColor(ObsidianTheme.tertiaryEmerald)
+                    Text("Cryptographic Key Rotation & User Moderation")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                Spacer()
+                StatusBadge(text: "ADMIN SHIELD", color: ObsidianTheme.tertiaryEmerald)
+            }
+
+            // Key Version
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Master Key Version")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                    Text(viewModel.currentMasterKeyVersion)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.primaryCyan)
+                }
+                Spacer()
+                Button(action: { viewModel.executeCryptographicKeyRotation() }) {
+                    Text("Rotate Master Key")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(ObsidianTheme.tertiaryEmerald)
+                        .cornerRadius(12)
+                }
+            }
+            .padding(10)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(12)
+
+            // Moderation Controls
+            VStack(alignment: .leading, spacing: 8) {
+                Text("USER & IP SECURITY MODERATION")
+                    .font(.system(size: 9, weight: .bold, design: .monospaced))
+                    .foregroundColor(Color.white.opacity(0.5))
+
+                HStack {
+                    TextField("Target User ID...", text: $viewModel.moderationTargetUserId)
+                        .padding(8)
+                        .background(Color.black.opacity(0.4))
+                        .cornerRadius(8)
+                        .foregroundColor(.white)
+                        .font(.system(size: 11, design: .monospaced))
+
+                    Button(action: { viewModel.banUserAccount() }) {
+                        Text("Ban User")
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 8)
+                            .background(Color.red.opacity(0.8))
+                            .cornerRadius(10)
+                    }
+                }
+
+                HStack {
+                    TextField("Target IP Address...", text: $viewModel.moderationTargetIp)
+                        .padding(8)
+                        .background(Color.black.opacity(0.4))
+                        .cornerRadius(8)
+                        .foregroundColor(.white)
+                        .font(.system(size: 11, design: .monospaced))
+
+                    Button(action: { viewModel.lockIPAddress() }) {
+                        Text("IP Lock")
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 8)
+                            .background(Color.orange.opacity(0.8))
+                            .cornerRadius(10)
+                    }
+                }
+
+                Text("Status: \(viewModel.moderationStatusMessage)")
+                    .font(.system(size: 10, design: .monospaced))
+                    .foregroundColor(Color.white.opacity(0.7))
+            }
+            .padding(10)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(12)
         }
         .padding(16)
         .obsidianGlassCard(cornerRadius: 24)

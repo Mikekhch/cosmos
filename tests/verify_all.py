@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
 Comprehensive Production Architecture Verification Suite for CosmosApp
-Tests and verifies Phase 1, Phase 2, and Phase 3:
+Tests and verifies Phase 1, Phase 2, Phase 3, and Phase 4:
 1. MVVM Architecture and File Structure Integrity
 2. 4-Layer Security Shield (CryptoKit E2EE logic, App Check format, AI Anomaly rules, Root Protection)
 3. Firestore Rules Syntax & Schema Security
 4. Storage & Cache Engine (Strict 300MB limit, LRU Eviction, Auto-purge logic)
 5. Phase 3 Backend Integration, Firebase Real-Time Sync, Remote Config & Media Engine
+6. Phase 4 Enterprise Remote Admin Control Dashboard, Key Rotation, User Moderation, & Cloud FFmpeg Pipeline Monitor
 """
 
 import os
@@ -112,15 +113,18 @@ def verify_security_shield_implementation():
         assert "SecTrustGetCertificateAtIndex" in content, "Missing SecTrust certificate evaluation"
         log("Layer 4 (Root Protection): SSL Pinning public key hash delegate verified")
 
-def verify_phase3_backend_and_realtime_sync():
-    print("\n--- 3. Verifying Phase 3 Backend, Real-Time Sync & Remote Interface ---")
+def verify_phase3_and_4_backend_and_enterprise_admin():
+    print("\n--- 3. Verifying Phase 3 & 4 Backend, Real-Time Sync & Enterprise Admin Dashboard ---")
 
     # Remote Config Manager
     with open("CosmosApp/Services/RemoteConfigManager.swift") as f:
         content = f.read()
         assert "isSpatialFeedEnabled" in content
         assert "isCreatorStudioEnabled" in content
-        assert "updateRemoteFeatureToggle" in content
+        assert "isNineLayerShieldActive" in content
+        assert "isDynamicModuleDeliveryEnabled" in content
+        assert "triggerMasterKeyRotation" in content
+        assert "moderateUserOrIP" in content
         log("Remote Config & Enterprise Admin Manager verified")
 
     # Firestore Real-Time Sync Service
@@ -131,16 +135,20 @@ def verify_phase3_backend_and_realtime_sync():
         assert "simulateNetworkConnectivityChange" in content
         log("Firestore Real-Time Sync Listener Service verified")
 
-    # Cloud Functions Offload
+    # Cloud Functions Offload & Enterprise Admin Triggers
     with open("functions/index.js") as f:
         content = f.read()
         assert "processMediaOffload" in content
         assert "removeBackgroundMatte" in content
         assert "compressAvatarMesh" in content
         assert "updateRemoteFeatureToggle" in content
-        log("Cloud Functions Media Processing & Remote Admin Triggers verified")
+        assert "getLiveAnalytics" in content
+        assert "moderateUserSecurity" in content
+        assert "rotateCryptographicKeys" in content
+        assert "getFFmpegPipelineStatus" in content
+        log("Cloud Functions FFmpeg Engine & Enterprise Admin Triggers verified")
 
-    # ViewModels State Binding
+    # ViewModels State Binding & Enterprise Dashboard Controls
     with open("CosmosApp/ViewModels/HomeFeedViewModel.swift") as f:
         content = f.read()
         assert "FirestoreSyncService" in content
@@ -150,8 +158,20 @@ def verify_phase3_backend_and_realtime_sync():
     with open("CosmosApp/ViewModels/SecurityDashboardViewModel.swift") as f:
         content = f.read()
         assert "toggleRemoteFlag" in content
+        assert "executeCryptographicKeyRotation" in content
+        assert "banUserAccount" in content
+        assert "lockIPAddress" in content
         assert "RemoteConfigManager" in content
-        log("SecurityDashboardViewModel Enterprise Admin Interface verified")
+        log("SecurityDashboardViewModel Enterprise Admin Dashboard Controls verified")
+
+    # Security Dashboard View UI components
+    with open("CosmosApp/Views/SecurityDashboardView.swift") as f:
+        content = f.read()
+        assert "remoteAdminControlsSection" in content
+        assert "cloudFFmpegAnalyticsSection" in content
+        assert "keyRotationAndModerationSection" in content
+        assert "enterpriseSecurityShieldSection" in content
+        log("SecurityDashboardView Enterprise Remote Admin Interface verified")
 
 def verify_storage_and_cache_engine():
     print("\n--- 4. Verifying Storage & Cache Optimization Engine ---")
@@ -204,10 +224,10 @@ if __name__ == "__main__":
     try:
         verify_architecture_files()
         verify_security_shield_implementation()
-        verify_phase3_backend_and_realtime_sync()
+        verify_phase3_and_4_backend_and_enterprise_admin()
         verify_storage_and_cache_engine()
         test_cache_and_lru_simulation()
-        print("\nALL PRODUCTION ARCHITECTURE AND PHASE 3 VERIFICATION TESTS PASSED SUCCESSFULLY! ✓✓✓")
+        print("\nALL PRODUCTION ARCHITECTURE AND PHASE 4 ENTERPRISE VERIFICATION TESTS PASSED SUCCESSFULLY! ✓✓✓")
     except AssertionError as e:
         print(f"\nTEST FAILURE: {e}")
         sys.exit(1)

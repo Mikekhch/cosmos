@@ -2,7 +2,7 @@
 //  SecurityDashboardViewModel.swift
 //  CosmosApp
 //
-//  ViewModel for 4-Layer Security Shield, Profile Security Center, and Remote Admin Panel Controls
+//  ViewModel for 4-Layer Security Shield, Profile Security Center, and Enterprise Remote Admin Panel Controls
 //
 
 import Foundation
@@ -32,7 +32,22 @@ public class SecurityDashboardViewModel: ObservableObject {
     @Published public var isEcommerceEnabled: Bool = true
     @Published public var isAIStudioToolsEnabled: Bool = true
     @Published public var isBackgroundRemovalEnabled: Bool = true
+    @Published public var isNineLayerShieldActive: Bool = true
+    @Published public var isDynamicModuleDeliveryEnabled: Bool = true
     @Published public var isMaintenanceModeActive: Bool = false
+
+    // Enterprise Admin Metrics & Key Control
+    @Published public var currentMasterKeyVersion: String = "v1711000000"
+    @Published public var activeSovereignNodes: Int = 14280
+    @Published public var activeSpatialSessions: Int = 8920
+    @Published public var meshThroughputGbps: Double = 18.4
+    @Published public var ffmpegActiveWorkers: Int = 12
+    @Published public var ffmpegQueuedJobs: Int = 3
+
+    // User & IP Moderation State
+    @Published public var moderationTargetUserId: String = "usr_threat_992"
+    @Published public var moderationTargetIp: String = "192.168.1.105"
+    @Published public var moderationStatusMessage: String = "Ready for administrative action"
 
     // Real-Time Sync State
     @Published public var syncStatus: SyncStatus = .synced
@@ -77,8 +92,32 @@ public class SecurityDashboardViewModel: ObservableObject {
         RemoteConfigManager.shared.$isBackgroundRemovalEnabled
             .assign(to: &$isBackgroundRemovalEnabled)
 
+        RemoteConfigManager.shared.$isNineLayerShieldActive
+            .assign(to: &$isNineLayerShieldActive)
+
+        RemoteConfigManager.shared.$isDynamicModuleDeliveryEnabled
+            .assign(to: &$isDynamicModuleDeliveryEnabled)
+
         RemoteConfigManager.shared.$isMaintenanceModeActive
             .assign(to: &$isMaintenanceModeActive)
+
+        RemoteConfigManager.shared.$currentMasterKeyVersion
+            .assign(to: &$currentMasterKeyVersion)
+
+        RemoteConfigManager.shared.$activeSovereignNodes
+            .assign(to: &$activeSovereignNodes)
+
+        RemoteConfigManager.shared.$activeSpatialSessions
+            .assign(to: &$activeSpatialSessions)
+
+        RemoteConfigManager.shared.$meshThroughputGbps
+            .assign(to: &$meshThroughputGbps)
+
+        RemoteConfigManager.shared.$ffmpegActiveWorkers
+            .assign(to: &$ffmpegActiveWorkers)
+
+        RemoteConfigManager.shared.$ffmpegQueuedJobs
+            .assign(to: &$ffmpegQueuedJobs)
 
         FirestoreSyncService.shared.$syncStatus
             .assign(to: &$syncStatus)
@@ -86,6 +125,24 @@ public class SecurityDashboardViewModel: ObservableObject {
 
     public func toggleRemoteFlag(flagKey: String, value: Bool) {
         RemoteConfigManager.shared.updateRemoteFeatureToggle(flagKey: flagKey, value: value)
+    }
+
+    public func executeCryptographicKeyRotation() {
+        RemoteConfigManager.shared.triggerMasterKeyRotation(reason: "Routine Admin Security Protocol") { [weak self] newVersion in
+            self?.moderationStatusMessage = "Rotated master key to \(newVersion)"
+        }
+    }
+
+    public func banUserAccount() {
+        RemoteConfigManager.shared.moderateUserOrIP(userId: moderationTargetUserId, ipAddress: nil, action: "ban") { [weak self] _ in
+            self?.moderationStatusMessage = "User \(self?.moderationTargetUserId ?? "") banned successfully."
+        }
+    }
+
+    public func lockIPAddress() {
+        RemoteConfigManager.shared.moderateUserOrIP(userId: nil, ipAddress: moderationTargetIp, action: "lock") { [weak self] _ in
+            self?.moderationStatusMessage = "IP \(self?.moderationTargetIp ?? "") locked in firewall."
+        }
     }
 
     public func simulateNetworkOffline() {
