@@ -15,6 +15,10 @@ public class StorageManagerViewModel: ObservableObject {
     @Published public var offloadJobs: [MediaProcessingJob] = []
     @Published public var simulatedFileSizeMB: Double = 85.0
 
+    // Real-time Sync & Remote Config State
+    @Published public var syncStatus: SyncStatus = .synced
+    @Published public var isBackgroundRemovalEnabled: Bool = true
+
     private var cancellables = Set<AnyCancellable>()
 
     public init() {
@@ -33,6 +37,12 @@ public class StorageManagerViewModel: ObservableObject {
 
         MediaOffloadService.shared.$activeJobs
             .assign(to: &$offloadJobs)
+
+        FirestoreSyncService.shared.$syncStatus
+            .assign(to: &$syncStatus)
+
+        RemoteConfigManager.shared.$isBackgroundRemovalEnabled
+            .assign(to: &$isBackgroundRemovalEnabled)
     }
 
     public func simulateAddCacheMediaItem() {

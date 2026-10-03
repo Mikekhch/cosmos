@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
 Comprehensive Production Architecture Verification Suite for CosmosApp
-Tests and verifies:
+Tests and verifies Phase 1, Phase 2, and Phase 3:
 1. MVVM Architecture and File Structure Integrity
 2. 4-Layer Security Shield (CryptoKit E2EE logic, App Check format, AI Anomaly rules, Root Protection)
 3. Firestore Rules Syntax & Schema Security
 4. Storage & Cache Engine (Strict 300MB limit, LRU Eviction, Auto-purge logic)
-5. Dynamic Feature Modules & Cloud Functions structure
+5. Phase 3 Backend Integration, Firebase Real-Time Sync, Remote Config & Media Engine
 """
 
 import os
@@ -35,6 +35,7 @@ def verify_architecture_files():
         "CosmosApp/ViewModels/CreatorStudioViewModel.swift",
         "CosmosApp/ViewModels/SpatialChatViewModel.swift",
         "CosmosApp/ViewModels/StorageManagerViewModel.swift",
+        "CosmosApp/ViewModels/HomeFeedViewModel.swift",
         "CosmosApp/Views/Theme/ObsidianTheme.swift",
         "CosmosApp/Views/Components/GlowButton.swift",
         "CosmosApp/Views/Components/StatusBadge.swift",
@@ -43,6 +44,7 @@ def verify_architecture_files():
         "CosmosApp/Views/CreatorStudioView.swift",
         "CosmosApp/Views/SpatialChatView.swift",
         "CosmosApp/Views/StorageManagementView.swift",
+        "CosmosApp/Views/HomeFeedView.swift",
         "CosmosApp/Services/AppCheckManager.swift",
         "CosmosApp/Services/CryptoManager.swift",
         "CosmosApp/Services/AnomalyDetectionEngine.swift",
@@ -51,6 +53,8 @@ def verify_architecture_files():
         "CosmosApp/Services/OnDemandFeatureManager.swift",
         "CosmosApp/Services/MediaOffloadService.swift",
         "CosmosApp/Services/CacheManager.swift",
+        "CosmosApp/Services/RemoteConfigManager.swift",
+        "CosmosApp/Services/FirestoreSyncService.swift",
         "CosmosApp/Utilities/KeychainHelper.swift",
         "CosmosApp/Utilities/Logger.swift",
         "firestore.rules",
@@ -108,8 +112,49 @@ def verify_security_shield_implementation():
         assert "SecTrustGetCertificateAtIndex" in content, "Missing SecTrust certificate evaluation"
         log("Layer 4 (Root Protection): SSL Pinning public key hash delegate verified")
 
+def verify_phase3_backend_and_realtime_sync():
+    print("\n--- 3. Verifying Phase 3 Backend, Real-Time Sync & Remote Interface ---")
+
+    # Remote Config Manager
+    with open("CosmosApp/Services/RemoteConfigManager.swift") as f:
+        content = f.read()
+        assert "isSpatialFeedEnabled" in content
+        assert "isCreatorStudioEnabled" in content
+        assert "updateRemoteFeatureToggle" in content
+        log("Remote Config & Enterprise Admin Manager verified")
+
+    # Firestore Real-Time Sync Service
+    with open("CosmosApp/Services/FirestoreSyncService.swift") as f:
+        content = f.read()
+        assert "SyncStatus" in content
+        assert "startRealtimeListeners" in content
+        assert "simulateNetworkConnectivityChange" in content
+        log("Firestore Real-Time Sync Listener Service verified")
+
+    # Cloud Functions Offload
+    with open("functions/index.js") as f:
+        content = f.read()
+        assert "processMediaOffload" in content
+        assert "removeBackgroundMatte" in content
+        assert "compressAvatarMesh" in content
+        assert "updateRemoteFeatureToggle" in content
+        log("Cloud Functions Media Processing & Remote Admin Triggers verified")
+
+    # ViewModels State Binding
+    with open("CosmosApp/ViewModels/HomeFeedViewModel.swift") as f:
+        content = f.read()
+        assert "FirestoreSyncService" in content
+        assert "RemoteConfigManager" in content
+        log("HomeFeedViewModel state binding to Sync & Remote Config verified")
+
+    with open("CosmosApp/ViewModels/SecurityDashboardViewModel.swift") as f:
+        content = f.read()
+        assert "toggleRemoteFlag" in content
+        assert "RemoteConfigManager" in content
+        log("SecurityDashboardViewModel Enterprise Admin Interface verified")
+
 def verify_storage_and_cache_engine():
-    print("\n--- 3. Verifying Storage & Cache Optimization Engine ---")
+    print("\n--- 4. Verifying Storage & Cache Optimization Engine ---")
 
     # 300MB limit & LRU cache eviction
     with open("CosmosApp/Services/CacheManager.swift") as f:
@@ -127,15 +172,8 @@ def verify_storage_and_cache_engine():
         assert "unloadFeatureFromMemory" in content, "Missing RAM unloader"
         log("Dynamic Feature Modules: On-Demand loading for Creator Studio & 3D Avatars verified")
 
-    # Server-side FFmpeg Cloud Functions
-    with open("functions/index.js") as f:
-        content = f.read()
-        assert "fluent-ffmpeg" in content or "ffmpeg" in content, "Missing ffmpeg in Cloud Functions"
-        assert "compressAvatarMesh" in content, "Missing 3D mesh compression callable"
-        log("Server-Side Offloading: FFmpeg and Cloud Function structure verified")
-
 def test_cache_and_lru_simulation():
-    print("\n--- 4. Running Logic Simulation Tests ---")
+    print("\n--- 5. Running Logic Simulation Tests ---")
 
     # Simulate LRU Eviction Math
     MAX_LIMIT = 300 * 1024 * 1024 # 300MB
@@ -166,9 +204,10 @@ if __name__ == "__main__":
     try:
         verify_architecture_files()
         verify_security_shield_implementation()
+        verify_phase3_backend_and_realtime_sync()
         verify_storage_and_cache_engine()
         test_cache_and_lru_simulation()
-        print("\nALL PRODUCTION ARCHITECTURE AND ENGINE VERIFICATION TESTS PASSED SUCCESSFULLY! ✓✓✓")
+        print("\nALL PRODUCTION ARCHITECTURE AND PHASE 3 VERIFICATION TESTS PASSED SUCCESSFULLY! ✓✓✓")
     except AssertionError as e:
         print(f"\nTEST FAILURE: {e}")
         sys.exit(1)

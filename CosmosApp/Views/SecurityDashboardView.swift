@@ -2,7 +2,7 @@
 //  SecurityDashboardView.swift
 //  CosmosApp
 //
-//  Profile & Security Center View (3D Holographic Avatar Stage, Enterprise 4-Layer Security Shield, Passkeys & Biometrics, Privacy Telemetry, Family Mesh)
+//  Profile & Security Center View (3D Holographic Avatar Stage, Enterprise 4-Layer Security Shield, Remote Admin Controls, Passkeys & Biometrics, Privacy Telemetry, Family Mesh)
 //
 
 import SwiftUI
@@ -18,22 +18,25 @@ public struct SecurityDashboardView: View {
                 // 1. Profile Hero & 3D Interactive Avatar Stage
                 profileHeroStage
 
-                // 2. Enterprise 4-Layer Security Shield Cards
+                // 2. Enterprise Remote Admin Interface (Phase 3)
+                remoteAdminControlsSection
+
+                // 3. Enterprise 4-Layer Security Shield Cards
                 enterpriseSecurityShieldSection
 
-                // 3. E2EE Interactive Test Bench & Audit Log
+                // 4. E2EE Interactive Test Bench & Audit Log
                 e2eeTestBenchSection
 
-                // 4. Passkey & Biometric Suite
+                // 5. Passkey & Biometric Suite
                 passkeyBiometricsSection
 
-                // 5. E2EE Privacy Telemetry
+                // 6. E2EE Privacy Telemetry
                 privacyTelemetrySection
 
-                // 6. Family Mesh & Governance Dashboard
+                // 7. Family Mesh & Governance Dashboard
                 familyGovernanceSection
 
-                // 7. Logout & Emergency Lockdown
+                // 8. Logout & Emergency Lockdown
                 emergencyLockdownSection
             }
             .padding(.horizontal, 16)
@@ -159,6 +162,108 @@ public struct SecurityDashboardView: View {
         }
         .padding(16)
         .obsidianGlassCard(cornerRadius: 30)
+    }
+
+    private var remoteAdminControlsSection: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            HStack {
+                HStack(spacing: 8) {
+                    Image(systemName: "slider.horizontal.3")
+                        .foregroundColor(ObsidianTheme.primaryCyan)
+                    Text("Enterprise Admin Remote Interface")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.white)
+                }
+                Spacer()
+                StatusBadge(text: "REMOTE CONFIG", color: ObsidianTheme.primaryCyan)
+            }
+
+            Text("Wire remote feature flags to dynamically enable/disable feature modules and UI layers without app updates.")
+                .font(.system(size: 11))
+                .foregroundColor(Color.white.opacity(0.6))
+
+            // Toggle 1: Spatial Feed
+            Toggle(isOn: Binding(
+                get: { viewModel.isSpatialFeedEnabled },
+                set: { viewModel.toggleRemoteFlag(flagKey: "isSpatialFeedEnabled", value: $0) }
+            )) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Spatial Canvas Feed")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                    Text("Dynamic AR Geo-Feed Layer")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundColor(Color.white.opacity(0.5))
+                }
+            }
+            .toggleStyle(SwitchToggleStyle(tint: ObsidianTheme.primaryCyan))
+            .padding(10)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(12)
+
+            // Toggle 2: Creator Studio
+            Toggle(isOn: Binding(
+                get: { viewModel.isCreatorStudioEnabled },
+                set: { viewModel.toggleRemoteFlag(flagKey: "isCreatorStudioEnabled", value: $0) }
+            )) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Creator Studio Module")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                    Text("On-Demand AR Reels & Tagging")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundColor(Color.white.opacity(0.5))
+                }
+            }
+            .toggleStyle(SwitchToggleStyle(tint: ObsidianTheme.primaryCyan))
+            .padding(10)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(12)
+
+            // Toggle 3: Maintenance Mode
+            Toggle(isOn: Binding(
+                get: { viewModel.isMaintenanceModeActive },
+                set: { viewModel.toggleRemoteFlag(flagKey: "isMaintenanceModeActive", value: $0) }
+            )) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Maintenance Mode")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
+                    Text("Global System Maintenance State")
+                        .font(.system(size: 10, design: .monospaced))
+                        .foregroundColor(.orange)
+                }
+            }
+            .toggleStyle(SwitchToggleStyle(tint: .orange))
+            .padding(10)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(12)
+
+            // Network Simulation Buttons
+            HStack(spacing: 10) {
+                Button(action: { viewModel.simulateNetworkOffline() }) {
+                    Text("Simulate Offline")
+                        .font(.system(size: 11, weight: .bold, design: .monospaced))
+                        .foregroundColor(.orange)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(Color.orange.opacity(0.15))
+                        .cornerRadius(12)
+                }
+
+                Button(action: { viewModel.simulateNetworkOnline() }) {
+                    Text("Simulate Online")
+                        .font(.system(size: 11, weight: .bold, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.tertiaryEmerald)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 6)
+                        .background(ObsidianTheme.tertiaryEmerald.opacity(0.15))
+                        .cornerRadius(12)
+                }
+            }
+        }
+        .padding(16)
+        .obsidianGlassCard(cornerRadius: 24)
     }
 
     private var enterpriseSecurityShieldSection: some View {

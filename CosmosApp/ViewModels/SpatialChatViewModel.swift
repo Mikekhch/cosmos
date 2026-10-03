@@ -47,6 +47,11 @@ public class SpatialChatViewModel: ObservableObject {
     @Published public var voiceTotalSeconds: Int = 24
     private var voiceTimer: AnyCancellable?
 
+    // Real-Time Sync & Remote Config State
+    @Published public var syncStatus: SyncStatus = .synced
+    @Published public var syncErrorMessage: String? = nil
+    @Published public var isE2EESpatialChatEnabled: Bool = true
+
     // Rich Sentiment Messages
     @Published public var sentimentMessages: [ChatMessageSentiment] = [
         ChatMessageSentiment(
@@ -87,8 +92,22 @@ public class SpatialChatViewModel: ObservableObject {
         )
     ]
 
+    private var cancellables = Set<AnyCancellable>()
+
     public init() {
+        bindServices()
         loadSampleMessages()
+    }
+
+    private func bindServices() {
+        FirestoreSyncService.shared.$syncStatus
+            .assign(to: &$syncStatus)
+
+        FirestoreSyncService.shared.$errorMessage
+            .assign(to: &$syncErrorMessage)
+
+        RemoteConfigManager.shared.$isE2EESpatialChatEnabled
+            .assign(to: &$isE2EESpatialChatEnabled)
     }
 
     private func loadSampleMessages() {
