@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-tint": "#00dbe9", "tertiary-fixed-dim": "#4edea3", "on-background": "#dfe2ee", "on-secondary-fixed": "#07006c", "on-primary": "#00363a", "surface-container-highest": "#31353e", "inverse-on-surface": "#2c3039", "on-primary-fixed-variant": "#004f54", "error-container": "#93000a", "surface-dim": "#0f131c", "outline": "#849495", "on-secondary-container": "#b0b2ff", "surface": "#0f131c", "secondary-container": "#3131c0", "surface-variant": "#31353e", "surface-container": "#1c2028", "on-primary-container": "#006970", "on-tertiary-fixed-variant": "#005236", "on-tertiary-container": "#006d4a", "inverse-surface": "#dfe2ee", "tertiary-container": "#65f2b5", "on-primary-fixed": "#002022", "primary-fixed": "#7df4ff", "primary": "#dbfcff", "tertiary-fixed": "#6ffbbe", "surface-bright": "#353942", "surface-container-lowest": "#0a0e16", "on-secondary": "#1000a9", "tertiary": "#d8ffe7", "outline-variant": "#3b494b", "on-tertiary": "#003824", "on-surface": "#dfe2ee", "surface-container-high": "#262a33", "on-error-container": "#ffdad6", "background": "#0f131c", "secondary": "#c0c1ff", "error": "#ffb4ab", "primary-container": "#00f0ff", "primary-fixed-dim": "#00dbe9", "on-surface-variant": "#b9cacb", "inverse-primary": "#006970", "on-tertiary-fixed": "#002113", "on-error": "#690005", "surface-container-low": "#181c24", "secondary-fixed": "#e1e0ff", "on-secondary-fixed-variant": "#2f2ebe", "secondary-fixed-dim": "#c0c1ff" }, borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, spacing: { "gutter-tablet": "1.5rem", "margin-desktop": "3rem", "space-xl": "2rem", "space-md": "1rem", "margin-tablet": "2rem", "gutter": "1rem", "space-sm": "0.75rem", "margin": "1rem", "space-xs": "0.5rem", "space-lg": "1.5rem", "space-3xl": "4rem", "space-2xs": "0.25rem", "space-2xl": "3rem", "gutter-desktop": "2rem" }, fontFamily: { "body-sm": ["Plus Jakarta Sans"], "display-hero": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-mono-xs": ["JetBrains Mono"], "headline-lg": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-mono-sm": ["JetBrains Mono"], "badge-caps": ["Plus Jakarta Sans"], "display-hero-mobile": ["Plus Jakarta Sans"] }, fontSize: { "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }], "display-hero": ["56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "400" }], "label-mono-xs": ["10px", { "lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "label-mono-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "500" }], "badge-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#0f131c;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-on-surface antialiased flex flex-col min-h-screen relative selection:bg-primary-container selection:text-on-primary-fixed"><div class="fixed inset-0 pointer-events-none z-0 overflow-hidden"><div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-secondary-container/20 blur-[120px]"></div><div class="absolute top-1/4 -right-24 w-80 h-80 rounded-full bg-primary-container/15 blur-[100px]"></div><div class="absolute -bottom-20 left-1/3 w-88 h-88 rounded-full bg-tertiary-container/10 blur-[130px]"></div></div><header class="fixed top-0 inset-x-0 z-50 pt-safe bg-surface-container-lowest/60 backdrop-blur-2xl shadow-[0_4px_30px_rgba(0,0,0,0.35)]"><div class="w-full h-8 px-6 flex items-center justify-between text-on-surface-variant font-label-mono-xs text-label-mono-xs"><span class="font-semibold tracking-tight text-on-surface">9:41</span><div class="w-28 h-6 bg-surface-container-lowest rounded-full flex items-center justify-center px-2 shadow-inner"><div class="w-2 h-2 rounded-full bg-surface-container-highest mr-1"></div><div class="w-2.5 h-2.5 rounded-full bg-surface-bright"></div></div><div class="flex items-center gap-1.5 text-on-surface"><span class="material-symbols-outlined text-[14px]">signal_cellular_alt</span><span class="font-label-mono-xs text-[10px] tracking-tighter">5G</span><span class="material-symbols-outlined text-[15px]">battery_full</span></div></div><div class="h-16 px-4 flex items-center justify-between"><div class="flex items-center gap-3"><img alt="Logo" class="h-8 w-auto object-contain drop-shadow-[0_0_12px_rgba(0,240,255,0.4)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB68cau6rpsoortRPbAJBv04X3Muq0Sp9lfCrC3D2blFu15RQl3oLeFyhWwsk-RILYq-4LBO02yzA5zvqveTUbDU-Tsc_VwXcy26GPMp9HUyIsE0D2In1IK92GxmCLtzRwln6UpOkbrHNXW96v5gQzDRKbfqV464x1aFtbS2A63ywTKMFYDyijZND9qXRFRVzTVbA3-ZiwilTRUe_bJD7co61kD0HQ8wEw8z2cuOcSnBZGKnL6jNp9j"/><div class="flex flex-col"><div class="flex items-center gap-2"><span class="font-headline-md text-headline-md tracking-tight text-primary font-bold">Aether</span><div class="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-surface-container-high/80 backdrop-blur-md"><span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed shadow-[0_0_8px_#6ffbbe] animate-pulse"></span><span class="font-label-mono-xs text-label-mono-xs text-tertiary-fixed tracking-wider uppercase">NODE 01</span></div></div><span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant uppercase tracking-wider -mt-0.5">Feed</span></div></div><div class="flex items-center gap-2.5"><button class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container/60 hover:bg-surface-container text-on-surface-variant hover:text-primary transition-all active:scale-95"><span class="material-symbols-outlined text-[20px]">spatial_audio_off</span></button><div class="relative flex items-center justify-center p-0.5 rounded-full bg-gradient-to-tr from-primary-container via-secondary to-tertiary-fixed shadow-[0_0_14px_rgba(0,240,255,0.35)]"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2xIgTw_0FYlI2Sci4UoWezycjwgekEmbrsC8PigTbWZih2n2RN6HCu7jb836Yi8EXSSSYV_U7sbTh-tDGX3-zg7MmIdFiHFrW1Cdz_dvk1EskiVhTRgoeq6JlkPauGSMMTYRI-106PExQKmcE_lYNkYESrbjItliwpIV6RFKaLGya2XbN1dMV-cea4Is1ftVmU8kgq1iWAVPdSlfQl0f5GuA_DQoMOosQZ7bIChdFF0AQdklwyp03"/><span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-tertiary-container shadow-[0_0_6px_#65f2b5]"></span></div></div></div></header><main class="flex flex-col relative w-full pt-24 pb-28 min-h-screen bg-transparent z-10"><div class="flex flex-col w-full text-on-surface select-none pb-12">
+<!-- Ambient Stage Lighting Highlights -->
+<div class="relative w-full px-4 space-y-4">
+<!-- Top Telemetry & Controls -->
+<div class="w-full bg-surface-container-low/80 backdrop-blur-2xl rounded-2xl p-3 shadow-xl space-y-2.5">
+<!-- Row 1: Session Status & Quick End -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container shadow-[0_0_8px_#00f0ff]"></span>
+</span>
+<div class="flex flex-col min-w-0">
+<span class="font-label-mono-xs text-label-mono-xs text-primary font-medium tracking-wide truncate">Binaural Call • 4 Connected</span>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-label-mono-xs text-[9px]">
+<span class="text-tertiary-fixed font-semibold tracking-wider">ENC-P2P</span>
+<span>•</span>
+<span class="text-primary-fixed-dim">8ms Latency</span>
+<span>•</span>
+<span class="text-on-surface-variant/80">360° Positional</span>
+</div>
+</div>
+</div>
+<!-- Call Actions Pill -->
+<div class="flex items-center gap-1.5">
+<button class="w-8 h-8 rounded-full bg-surface-container-high/90 hover:bg-surface-container-highest text-on-surface flex items-center justify-center transition-all active:scale-90 shadow-sm" id="micToggleBtn" title="Mute Mic">
+<span class="material-symbols-outlined text-[17px]">mic</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-primary-container/20 text-primary-container flex items-center justify-center transition-all active:scale-90 shadow-[0_0_12px_rgba(0,240,255,0.25)]" id="spatialAudioBtn" title="360 Spatial Audio">
+<span class="material-symbols-outlined text-[17px]" style="font-variation-settings: 'FILL' 1;">spatial_tracking</span>
+</button>
+<button class="px-3 h-8 rounded-full bg-error-container/90 text-on-error-container hover:bg-error-container flex items-center gap-1 font-label-mono-xs text-label-mono-xs tracking-wider uppercase transition-all active:scale-95 shadow-md">
+<span class="material-symbols-outlined text-[15px]">call_end</span>
+<span>Leave</span>
+</button>
+</div>
+</div>
+<!-- Row 2: Sub-Mode Filter Tabs -->
+<div class="flex items-center gap-1 bg-surface-container-lowest/80 p-1 rounded-xl">
+<button class="flex-1 py-1 px-2 rounded-lg bg-surface-container-high text-primary font-label-mono-xs text-label-mono-xs font-semibold shadow-sm text-center transition-all">
+          HUD Call (Live)
+        </button>
+<button class="flex-1 py-1 px-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label-mono-xs text-label-mono-xs font-medium text-center transition-all">
+          Chat Stream (4)
+        </button>
+<button class="flex-1 py-1 px-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label-mono-xs text-label-mono-xs font-medium text-center transition-all">
+          Co-Watch (1)
+        </button>
+</div>
+</div>
+<!-- Spatial Holographic Telemetry Screen / Viewport -->
+<div class="relative w-full rounded-2xl bg-surface-container-lowest overflow-hidden shadow-2xl">
+<!-- Media Viewport Image Frame -->
+<div class="relative w-full aspect-[16/10] overflow-hidden">
+<img class="w-full h-full object-cover scale-[1.02] filter contrast-110 brightness-95" data-alt="Futuristic dual spatial AR cyberpunk interface on high-tech cockpit console with glowing holographic screens in electric cyan and magenta, high-tech telemetry HUD showing biometric audio streams and cybernetic city streets in background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU9HdRZQHXKykEMEEsgZexOmMJxqkX_4FMc2E9B8ehOFK4nFMVlTXc5alF_e8ComJ8-lqeMEOorBY3JY-FvygZ9VMmDGZ1zjkwTNyMdlal6OGBqPhRqlrWvTiHjjjSou9MFI4QMyLhoA5LaoG-zJND_MnzAWLIOPyY5vRTEk9bvGS2xcjClBiWBxysfnV6xLtj41xCRnAfsF5UiwAI4WU9uGk6A6QITexcc-5Lt2lcxG4LRuIYzIpt"/>
+<!-- Optical Scanlines & Cyber Vignette -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-transparent to-surface-container-lowest/70 pointer-events-none"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-transparent to-surface-container-lowest/90 pointer-events-none"></div>
+<!-- Futuristic Corner Bracket Overlays -->
+<div class="absolute top-2.5 left-2.5 flex items-start gap-1 pointer-events-none">
+<div class="w-3 h-3 border-l-2 border-t-2 border-primary-container/80 rounded-tl-sm"></div>
+<span class="font-label-mono-xs text-[9px] text-primary-container uppercase tracking-widest bg-surface-container-lowest/75 px-1 py-0.5 rounded backdrop-blur-sm shadow-sm">NEO-SHIBUYA // 04</span>
+</div>
+<div class="absolute top-2.5 right-2.5 flex items-start gap-1 pointer-events-none">
+<span class="font-label-mono-xs text-[9px] text-tertiary-fixed uppercase tracking-widest bg-surface-container-lowest/75 px-1 py-0.5 rounded backdrop-blur-sm shadow-sm">AI-HOLOLINK STABLE</span>
+<div class="w-3 h-3 border-r-2 border-t-2 border-tertiary-fixed/80 rounded-tr-sm"></div>
+</div>
+<div class="absolute bottom-2.5 left-2.5 w-3 h-3 border-l-2 border-b-2 border-primary-container/80 rounded-bl-sm pointer-events-none"></div>
+<div class="absolute bottom-2.5 right-2.5 w-3 h-3 border-r-2 border-b-2 border-secondary-fixed/80 rounded-br-sm pointer-events-none"></div>
+<!-- In-Stream Telemetry Badges Floating -->
+<div class="absolute bottom-3 left-3 right-3 flex items-end justify-between pointer-events-none">
+<div class="flex flex-col gap-1">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full bg-surface-container-high/90 backdrop-blur-md shadow-md">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-fixed shadow-[0_0_6px_#6ffbbe]"></span>
+<span class="font-label-mono-xs text-[10px] text-on-surface font-semibold">Dr. Thorne (AI Synth)</span>
+<span class="text-on-surface-variant font-label-mono-xs text-[9px]">L45° 0.4ms</span>
+</div>
+<div class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-container-lowest/80 backdrop-blur-sm font-label-mono-xs text-[9px] text-on-surface-variant">
+<span>Synaptic Mesh: 99.8%</span>
+</div>
+</div>
+<!-- Video Stream Dynamic Equalizer -->
+<div class="flex items-end gap-0.5 h-5 px-2 py-1 rounded-lg bg-surface-container-lowest/80 backdrop-blur-md">
+<div class="w-0.5 bg-primary-container h-2 rounded-full animate-pulse"></div>
+<div class="w-0.5 bg-primary-container h-4 rounded-full"></div>
+<div class="w-0.5 bg-primary-container h-5 rounded-full"></div>
+<div class="w-0.5 bg-primary-container h-3 rounded-full"></div>
+<div class="w-0.5 bg-primary-container h-4 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Avatar Mode Deck & Persona Selector -->
+<div class="p-3 bg-surface-container-low/95 backdrop-blur-xl space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">identity_platform</span>
+<span class="font-label-mono-xs text-label-mono-xs text-on-surface-variant uppercase tracking-wider">Privacy Persona</span>
+</div>
+<!-- Toggle Stream vs AI Synth Persona -->
+<div class="flex items-center bg-surface-container-lowest p-0.5 rounded-full">
+<button class="px-2.5 py-0.5 rounded-full font-label-mono-xs text-[10px] text-on-surface-variant transition-colors">Raw Cam</button>
+<button class="px-2.5 py-0.5 rounded-full bg-gradient-to-r from-primary-container/30 to-secondary/30 text-primary font-label-mono-xs text-[10px] font-semibold shadow-[0_0_10px_rgba(0,240,255,0.3)]">AI Hologram</button>
+</div>
+</div>
+<!-- Quick Skin Selector Chips -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+<button class="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-container-high text-primary shadow-[0_0_10px_rgba(0,240,255,0.2)] transition-all">
+<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_6px_#00f0ff]"></span>
+<span class="font-label-mono-xs text-label-mono-xs font-semibold">Dr. Thorne (AI)</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface transition-all">
+<span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_6px_#c0c1ff]"></span>
+<span class="font-label-mono-xs text-label-mono-xs">Cyber-Knit</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface transition-all">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed shadow-[0_0_6px_#6ffbbe]"></span>
+<span class="font-label-mono-xs text-label-mono-xs">Specter Neon</span>
+</button>
+<button class="flex-shrink-0 flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:text-on-surface transition-all">
+<span class="w-2 h-2 rounded-full bg-surface-bright"></span>
+<span class="font-label-mono-xs text-label-mono-xs">Wireframe</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Co-Watch Stage Card -->
+<div class="w-full bg-surface-container/70 backdrop-blur-xl rounded-2xl p-3 shadow-lg space-y-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-secondary-container/60 text-secondary flex items-center justify-center shadow-[0_0_12px_rgba(192,193,255,0.3)]">
+<span class="material-symbols-outlined text-[17px]">connected_tv</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-md text-[13px] font-semibold text-on-surface">Neo-Shibuya Runway 2049</span>
+<span class="px-1.5 py-0.2 rounded bg-tertiary-container/30 text-on-tertiary-container font-label-mono-xs text-[9px] font-bold">LIVE SYNC</span>
+</div>
+<span class="font-label-mono-xs text-[10px] text-on-surface-variant">Host: Kira Vance • 3 in Stage (0.02s delta)</span>
+</div>
+</div>
+<button class="w-7 h-7 rounded-full bg-surface-container-high text-on-surface hover:text-primary flex items-center justify-center transition-all" title="Share Screen">
+<span class="material-symbols-outlined text-[16px]">screen_share</span>
+</button>
+</div>
+<!-- Scrub Bar Sync Visualization -->
+<div class="space-y-1">
+<div class="w-full bg-surface-container-lowest h-1.5 rounded-full overflow-hidden flex">
+<div class="h-full bg-gradient-to-r from-secondary to-primary-container w-3/4 rounded-full shadow-[0_0_8px_rgba(0,240,255,0.6)]"></div>
+</div>
+<div class="flex items-center justify-between font-label-mono-xs text-[10px] text-on-surface-variant">
+<span>00:44:19</span>
+<span class="text-tertiary-fixed font-medium">Stage Audio Boost +3dB</span>
+<span>01:12:00</span>
+</div>
+</div>
+</div>
+<!-- Sentiment Glassmorphic Chat Stream -->
+<div class="w-full space-y-3 pt-1">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">bubble_chart</span>
+<span class="font-label-mono-xs text-label-mono-xs uppercase tracking-wider text-on-surface-variant">Spatial Sentiment Stream</span>
+</div>
+<span class="font-label-mono-xs text-[10px] text-tertiary-fixed bg-tertiary-container/20 px-2 py-0.5 rounded-full">Atmosphere: Euphoric</span>
+</div>
+<!-- Message 1: Positive / Excited Sentiment (Cyan Glow) -->
+<div class="relative bg-surface-container-low/90 backdrop-blur-2xl rounded-2xl p-3 shadow-lg space-y-1.5 shadow-[0_4px_24px_-6px_rgba(0,240,255,0.18)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Digital holographic avatar profile of a cyberpunk woman with vibrant purple neon hair and futuristic glass visor in Tokyo night atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD8KoNRI16-XSnqQiobH--YEPUiZ2ner7MBv-VYDzLXZqljsdrYxMxnmPoXaD-V7DVgOBVAoCASG51CahyZClI29nb3SXGTMqA3YzcQCAdfnECppBsC9qUkQDF9D5yZMNIBTuQ2svNcgkz84Mb8tAlexDGSv4O3AHHZsQABaMIVgP-Nu_AjhCMui99UKWMSlJC8ubRDTiNLDDm2JYWfvKBJlqkvawf6Dc3FmyClbdtU1VzKTIq8bt-p"/>
+<span class="font-headline-md text-[13px] font-semibold text-primary">Kira Vance</span>
+<span class="font-label-mono-xs text-[9px] text-on-surface-variant">22:19</span>
+</div>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-primary-container/15 text-primary-container font-label-mono-xs text-[9px]">
+<span class="material-symbols-outlined text-[11px]">bolt</span>
+<span>Excited</span>
+</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface pl-8">
+          The spatial acoustics in the runway stream are surreal! Who is grabbing VIP backstage tickets? Node drop is live right now! ✨
+        </p>
+</div>
+<!-- In-Chat Drop: VIP Ticket Purchasing Card -->
+<div class="relative rounded-2xl bg-gradient-to-br from-surface-container-high via-surface-container to-surface-container-low p-3.5 shadow-2xl shadow-[0_0_30px_rgba(0,240,255,0.15)] space-y-3">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-container to-secondary flex items-center justify-center shadow-[0_0_18px_rgba(0,240,255,0.4)]">
+<span class="material-symbols-outlined text-on-primary-fixed text-[22px]">confirmation_number</span>
+</div>
+<div>
+<div class="flex items-center gap-1.5">
+<span class="font-headline-md text-headline-md text-on-surface font-bold">Neo-Tokyo Runway Pass</span>
+</div>
+<span class="font-label-mono-xs text-label-mono-xs text-tertiary-fixed font-semibold">Tier 1 • Backstage Holo-Access</span>
+</div>
+</div>
+<span class="font-label-mono-xs text-[10px] bg-error-container/40 text-error px-2 py-0.5 rounded-full font-medium">
+            7 Left
+          </span>
+</div>
+<!-- Pricing & Vault Balance preview -->
+<div class="flex items-center justify-between bg-surface-container-lowest/80 p-2.5 rounded-xl font-label-mono-xs">
+<div>
+<span class="text-on-surface-variant text-[10px] block">Price</span>
+<span class="font-semibold text-primary-fixed text-label-mono-sm">$85.00 <span class="text-on-surface-variant text-[10px]">or</span> 45 $L2E</span>
+</div>
+<div class="text-right">
+<span class="text-on-surface-variant text-[10px] block">Vault Balance</span>
+<span class="text-tertiary-fixed text-[11px] font-semibold">1,420.50 $L2E</span>
+</div>
+</div>
+<!-- Mint and Gift Action Buttons -->
+<div class="flex items-center gap-2">
+<button class="flex-1 py-2 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint hover:opacity-95 text-on-primary-fixed font-headline-md text-[13px] font-bold shadow-[0_0_18px_rgba(0,240,255,0.35)] transition-all active:scale-[0.98] flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[17px]">token</span>
+<span>Instant Mint Pass</span>
+</button>
+<button class="px-3 py-2 rounded-xl bg-surface-container-high hover:bg-surface-bright text-on-surface font-label-mono-xs text-label-mono-xs transition-all active:scale-[0.98] flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">featured_seasonal_and_gifts</span>
+<span>Gift</span>
+</button>
+</div>
+</div>
+<!-- Message 2: Analytical / AI Persona Sentiment (Violet Glow) -->
+<div class="relative bg-surface-container-low/90 backdrop-blur-2xl rounded-2xl p-3 shadow-lg space-y-1.5 shadow-[0_4px_24px_-6px_rgba(192,193,255,0.18)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-secondary flex items-center justify-center font-label-mono-xs text-[10px] font-bold shadow-[0_0_8px_#b0b2ff]">
+              AI
+            </div>
+<span class="font-headline-md text-[13px] font-semibold text-secondary">Dr. Thorne (Synth AI)</span>
+<span class="font-label-mono-xs text-[9px] text-on-surface-variant">22:20</span>
+</div>
+<span class="flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-secondary-container/30 text-secondary font-label-mono-xs text-[9px]">
+<span class="material-symbols-outlined text-[11px]">neurology</span>
+<span>Analytical</span>
+</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface pl-8">
+          Acoustic refraction analysis indicates 99.4% binaural authenticity. Smart contract verification confirms pass redemption guarantees front-row spatial anchor privileges.
+        </p>
+</div>
+<!-- Message 3: Soundwave Voice Message Card -->
+<div class="relative bg-surface-container-low/90 backdrop-blur-2xl rounded-2xl p-3 shadow-lg space-y-2 shadow-[0_4px_20px_-6px_rgba(101,242,181,0.15)]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<img class="w-6 h-6 rounded-full object-cover" data-alt="Close up portrait of a cyberpunk hacker boy with cybernetic temple implants and high-tech street jacket under neon rain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPBwwtX2ukwO_0XVmhSo5sYUxfruQGkzaoz2va4AgXaQBpQNAShkiJVGQsEQ_4hVKdz0dBHVlX866f8HQvoOE6nf3MANc_H7k0hnTDmjG1QyVg9aHI2UxvcH0P-3H8Guxn3TOxWX6s0AhsRC8oQUTRHX_sxlGedYnkahMhEsYIpb3CBuY88XIv1W5tMHA36rUDTA6AfDEwgwyKqT8g7ITL18UGS684881vs3g3eAMHT9RvQNxX-Yvi"/>
+<span class="font-headline-md text-[13px] font-semibold text-tertiary-fixed">Ren_K</span>
+<span class="font-label-mono-xs text-[9px] text-on-surface-variant">00:24 Audio</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary-fixed font-label-mono-xs text-[10px]">
+<span class="material-symbols-outlined text-[13px]">graphic_eq</span>
+<span>Spatial Audio</span>
+</div>
+</div>
+<!-- Waveform Visualizer Bar -->
+<div class="flex items-center gap-2 bg-surface-container-lowest/80 p-2 rounded-xl">
+<button class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary flex items-center justify-center shadow-[0_0_10px_#65f2b5] active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+</button>
+<!-- Visual EQ bars -->
+<div class="flex-1 flex items-center gap-1 h-7 px-1">
+<div class="w-1 bg-tertiary-fixed h-3 rounded-full"></div>
+<div class="w-1 bg-tertiary-fixed h-5 rounded-full"></div>
+<div class="w-1 bg-tertiary-fixed h-7 rounded-full"></div>
+<div class="w-1 bg-tertiary-fixed h-4 rounded-full"></div>
+<div class="w-1 bg-tertiary-fixed h-6 rounded-full"></div>
+<div class="w-1 bg-tertiary-fixed h-3 rounded-full"></div>
+<!-- Playhead separator -->
+<div class="w-0.5 bg-primary-container h-7 shadow-[0_0_8px_#00f0ff]"></div>
+<div class="w-1 bg-surface-variant h-5 rounded-full"></div>
+<div class="w-1 bg-surface-variant h-6 rounded-full"></div>
+<div class="w-1 bg-surface-variant h-3 rounded-full"></div>
+<div class="w-1 bg-surface-variant h-4 rounded-full"></div>
+<div class="w-1 bg-surface-variant h-2 rounded-full"></div>
+<div class="w-1 bg-surface-variant h-5 rounded-full"></div>
+<div class="w-1 bg-surface-variant h-3 rounded-full"></div>
+</div>
+<span class="font-label-mono-xs text-[10px] text-on-surface-variant">0:11 / 0:24</span>
+</div>
+<!-- Realtime AI Speech-to-Text Transcript -->
+<div class="bg-surface-container/60 p-2 rounded-lg font-body-sm text-body-sm text-on-surface-variant italic">
+          "Hey team, I just staked 50 $L2E for the backstage pass. Meet me at Sector 4 when the runway starts."
+        </div>
+<!-- Spatial Reactions -->
+<div class="flex items-center gap-1.5 pt-0.5">
+<button class="px-2 py-0.5 rounded-full bg-surface-container-high hover:bg-surface-bright flex items-center gap-1 font-label-mono-xs text-[10px] text-on-surface active:scale-95 transition-all">
+<span>👍</span>
+<span class="font-semibold text-primary">4</span>
+</button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container-high hover:bg-surface-bright flex items-center gap-1 font-label-mono-xs text-[10px] text-on-surface active:scale-95 transition-all">
+<span>⚡</span>
+<span class="font-semibold text-tertiary-fixed">2</span>
+</button>
+<button class="px-2 py-0.5 rounded-full bg-surface-container-high hover:bg-surface-bright flex items-center gap-1 font-label-mono-xs text-[10px] text-on-surface active:scale-95 transition-all">
+<span>🎟️</span>
+<span class="font-semibold text-secondary">1</span>
+</button>
+<button class="w-6 h-6 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface-variant flex items-center justify-center transition-all">
+<span class="material-symbols-outlined text-[13px]">add_reaction</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Bottom Spatial Chat Input Dock -->
+<div class="w-full bg-surface-container-low/95 backdrop-blur-2xl rounded-2xl p-2 shadow-2xl flex items-center gap-1.5">
+<!-- Media / Node Attachment Trigger -->
+<button class="w-9 h-9 rounded-full bg-surface-container-high hover:bg-surface-bright text-on-surface-variant hover:text-primary flex items-center justify-center transition-all active:scale-90 flex-shrink-0" title="Attach item or AR Anchor">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+</button>
+<!-- Input Field -->
+<div class="flex-1 bg-surface-container-lowest/90 rounded-full px-3 py-1.5 flex items-center gap-2">
+<input class="w-full bg-transparent text-on-surface placeholder:text-on-surface-variant/50 font-body-sm text-body-sm focus:outline-none" placeholder="Message spatial room or hold mic..." type="text"/>
+<span class="w-2 h-2 rounded-full bg-primary-container/80 shadow-[0_0_6px_#00f0ff] animate-pulse"></span>
+</div>
+<!-- Voice Anchor Push-to-Talk -->
+<button class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface hover:text-tertiary-fixed flex items-center justify-center transition-all active:scale-90 flex-shrink-0 shadow-sm" id="voiceAnchorBtn" title="Push to Spatial Voice">
+<span class="material-symbols-outlined text-[19px]">mic</span>
+</button>
+<!-- Send Trigger -->
+<button class="w-9 h-9 rounded-full bg-gradient-to-tr from-primary-container to-secondary text-on-primary-fixed flex items-center justify-center transition-all active:scale-90 flex-shrink-0 shadow-[0_0_14px_rgba(0,240,255,0.4)]">
+<span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interaction toggles for Call State & Spatial Audio
+  const micToggleBtn = document.getElementById('micToggleBtn');
+  let isMuted = false;
+  if (micToggleBtn) {
+    micToggleBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      const icon = micToggleBtn.querySelector('.material-symbols-outlined');
+      if (isMuted) {
+        icon.textContent = 'mic_off';
+        micToggleBtn.classList.add('bg-error-container', 'text-on-error-container');
+        micToggleBtn.classList.remove('bg-surface-container-high', 'text-on-surface');
+      } else {
+        icon.textContent = 'mic';
+        micToggleBtn.classList.remove('bg-error-container', 'text-on-error-container');
+        micToggleBtn.classList.add('bg-surface-container-high', 'text-on-surface');
+      }
+    });
+  }
+
+  const spatialAudioBtn = document.getElementById('spatialAudioBtn');
+  let spatialActive = true;
+  if (spatialAudioBtn) {
+    spatialAudioBtn.addEventListener('click', () => {
+      spatialActive = !spatialActive;
+      if (spatialActive) {
+        spatialAudioBtn.classList.add('bg-primary-container/20', 'text-primary-container');
+        spatialAudioBtn.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+      } else {
+        spatialAudioBtn.classList.remove('bg-primary-container/20', 'text-primary-container');
+        spatialAudioBtn.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+      }
+    });
+  }
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe px-4 pt-2 pointer-events-none" data-active-classes="text-primary-container drop-shadow-[0_0_12px_rgba(0,240,255,0.85)] font-semibold scale-105"><div class="max-w-md mx-auto h-16 rounded-full bg-surface-container-low/75 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.6)] px-3 flex items-center justify-around pointer-events-auto"><a class="flex flex-col items-center justify-center min-w-[48px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-95" data-path="feed" href="#"><span class="material-symbols-outlined text-[22px]">view_in_ar</span><span class="font-label-mono-xs text-label-mono-xs mt-0.5">Canvas</span></a><a class="flex flex-col items-center justify-center min-w-[48px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-95" data-path="discover" href="#"><span class="material-symbols-outlined text-[22px]">travel_explore</span><span class="font-label-mono-xs text-label-mono-xs mt-0.5">Nodes</span></a><a class="flex items-center justify-center w-12 h-12 -mt-4 rounded-full bg-gradient-to-tr from-primary-container to-secondary shadow-[0_0_24px_rgba(0,240,255,0.5)] text-on-primary-fixed active:scale-90 transition-transform" data-path="create" href="#"><span class="material-symbols-outlined text-[28px] font-bold">add</span></a><a class="flex flex-col items-center justify-center min-w-[48px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-95" data-path="soundwaves" href="#"><span class="material-symbols-outlined text-[22px]">graphic_eq</span><span class="font-label-mono-xs text-label-mono-xs mt-0.5">Aura</span></a><a class="flex flex-col items-center justify-center min-w-[48px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-all duration-200 active:scale-95" data-path="vault" href="#"><span class="material-symbols-outlined text-[22px]">token</span><span class="font-label-mono-xs text-label-mono-xs mt-0.5">Vault</span></a></div></nav></body></html>
