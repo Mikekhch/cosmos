@@ -24,14 +24,6 @@ public enum FeedMode: String, CaseIterable, Identifiable {
     }
 }
 
-public struct VoiceComment: Identifiable {
-    public let id: String
-    public let authorHandle: String
-    public let durationSeconds: Int
-    public let textSnippet: String
-    public var currentPlaybackSeconds: Int
-}
-
 public final class HomeFeedViewModel: ObservableObject {
     @Published public var isSummaryExpanded: Bool = false
     @Published public var selectedFeedMode: FeedMode = .spatial
@@ -52,7 +44,35 @@ public final class HomeFeedViewModel: ObservableObject {
     @Published public var echoCount: Int = 142
     @Published public var isResonated: Bool = false
 
-    public init() {}
+    // Real-Time Sync & Remote Config State Bindings
+    @Published public var syncStatus: SyncStatus = .synced
+    @Published public var syncErrorMessage: String? = nil
+    @Published public var isSpatialFeedEnabled: Bool = true
+    @Published public var isMaintenanceModeActive: Bool = false
+
+    private var cancellables = Set<AnyCancellable>()
+
+    public init() {
+        bindServices()
+    }
+
+    private func bindServices() {
+        FirestoreSyncService.shared.$syncStatus
+            .assign(to: &$syncStatus)
+
+        FirestoreSyncService.shared.$errorMessage
+            .assign(to: &$syncErrorMessage)
+
+        RemoteConfigManager.shared.$isSpatialFeedEnabled
+            .assign(to: &$isSpatialFeedEnabled)
+
+        RemoteConfigManager.shared.$isMaintenanceModeActive
+            .assign(to: &$isMaintenanceModeActive)
+    }
+
+    public func retrySync() {
+        FirestoreSyncService.shared.retrySync()
+    }
 
     public func toggleSummary() {
         withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {

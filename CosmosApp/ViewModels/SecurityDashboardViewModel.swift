@@ -2,7 +2,7 @@
 //  SecurityDashboardViewModel.swift
 //  CosmosApp
 //
-//  ViewModel for 4-Layer Security Shield & Profile Security Center
+//  ViewModel for 4-Layer Security Shield, Profile Security Center, and Remote Admin Panel Controls
 //
 
 import Foundation
@@ -26,6 +26,17 @@ public class SecurityDashboardViewModel: ObservableObject {
     @Published public var userRole: String = "AR Architect & Node Validator"
     @Published public var validatorLevel: String = "VALIDATOR L4"
 
+    // Remote Admin Feature Toggles
+    @Published public var isSpatialFeedEnabled: Bool = true
+    @Published public var isCreatorStudioEnabled: Bool = true
+    @Published public var isEcommerceEnabled: Bool = true
+    @Published public var isAIStudioToolsEnabled: Bool = true
+    @Published public var isBackgroundRemovalEnabled: Bool = true
+    @Published public var isMaintenanceModeActive: Bool = false
+
+    // Real-Time Sync State
+    @Published public var syncStatus: SyncStatus = .synced
+
     // Passkeys & Biometrics
     @Published public var isFaceIDEnabled: Bool = true
     @Published public var isPasskeySynced: Bool = true
@@ -46,7 +57,43 @@ public class SecurityDashboardViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     public init() {
+        bindServices()
         refreshAllSecurityLayers()
+    }
+
+    private func bindServices() {
+        RemoteConfigManager.shared.$isSpatialFeedEnabled
+            .assign(to: &$isSpatialFeedEnabled)
+
+        RemoteConfigManager.shared.$isCreatorStudioEnabled
+            .assign(to: &$isCreatorStudioEnabled)
+
+        RemoteConfigManager.shared.$isEcommerceEnabled
+            .assign(to: &$isEcommerceEnabled)
+
+        RemoteConfigManager.shared.$isAIStudioToolsEnabled
+            .assign(to: &$isAIStudioToolsEnabled)
+
+        RemoteConfigManager.shared.$isBackgroundRemovalEnabled
+            .assign(to: &$isBackgroundRemovalEnabled)
+
+        RemoteConfigManager.shared.$isMaintenanceModeActive
+            .assign(to: &$isMaintenanceModeActive)
+
+        FirestoreSyncService.shared.$syncStatus
+            .assign(to: &$syncStatus)
+    }
+
+    public func toggleRemoteFlag(flagKey: String, value: Bool) {
+        RemoteConfigManager.shared.updateRemoteFeatureToggle(flagKey: flagKey, value: value)
+    }
+
+    public func simulateNetworkOffline() {
+        FirestoreSyncService.shared.simulateNetworkConnectivityChange(isOnline: false)
+    }
+
+    public func simulateNetworkOnline() {
+        FirestoreSyncService.shared.simulateNetworkConnectivityChange(isOnline: true)
     }
 
     public func refreshAllSecurityLayers() {

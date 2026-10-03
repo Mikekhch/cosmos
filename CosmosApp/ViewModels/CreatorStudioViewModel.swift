@@ -38,6 +38,8 @@ public class CreatorStudioViewModel: ObservableObject {
     @Published public var isAutoCaptionsEnabled: Bool = true
     @Published public var isBGMatteNeuralEnabled: Bool = true
     @Published public var isSpatialVoice3DEnabled: Bool = true
+    @Published public var isBackgroundRemovalProcessing: Bool = false
+    @Published public var processedMatteUrl: String? = nil
 
     // Multi-Warehouse Inventory & Tagging
     @Published public var selectedWarehouse: String = "Tokyo Mega-Hub (WH-01)"
@@ -48,8 +50,27 @@ public class CreatorStudioViewModel: ObservableObject {
         InventoryItem(id: "3", title: "Sonic Spatial Ear-Nodes", sku: "#EAR-012", stockCount: 410, priceUSD: 85.00, priceL2E: 42, isTagged: false, tagTimestampSeconds: nil)
     ]
 
+    // Real-Time Sync & Remote Config Toggles
+    @Published public var isCreatorStudioEnabled: Bool = true
+    @Published public var isAIStudioToolsEnabled: Bool = true
+    @Published public var syncStatus: SyncStatus = .synced
+
+    private var cancellables = Set<AnyCancellable>()
+
     public init() {
+        bindServices()
         checkModuleStatus()
+    }
+
+    private func bindServices() {
+        RemoteConfigManager.shared.$isCreatorStudioEnabled
+            .assign(to: &$isCreatorStudioEnabled)
+
+        RemoteConfigManager.shared.$isAIStudioToolsEnabled
+            .assign(to: &$isAIStudioToolsEnabled)
+
+        FirestoreSyncService.shared.$syncStatus
+            .assign(to: &$syncStatus)
     }
 
     public func checkModuleStatus() {
@@ -69,6 +90,18 @@ public class CreatorStudioViewModel: ObservableObject {
             fileName: "creator_frame_\(Int(Date().timeIntervalSince1970)).mp4",
             fileSizeBytes: 42 * 1024 * 1024
         ) { _ in }
+    }
+
+    public func triggerBackgroundRemovalOffload() {
+        isBackgroundRemovalProcessing = true
+        MediaOffloadService.shared.submitBackgroundRemovalOffload(mediaId: "frame_\(Int(Date().timeIntervalSince1970))") { [weak self] result in
+            DispatchQueue.main.async {
+                self?.isBackgroundRemovalProcessing = false
+                if case .success(let url) = result {
+                    self?.processedMatteUrl = url
+                }
+            }
+        }
     }
 
     public func togglePlayPause() {

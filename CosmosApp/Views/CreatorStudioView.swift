@@ -18,7 +18,9 @@ public struct CreatorStudioView: View {
                 // Header & Project Bar
                 studioHeaderBar
 
-                if viewModel.isModuleMounted {
+                if !viewModel.isCreatorStudioEnabled {
+                    disabledModuleCard
+                } else if viewModel.isModuleMounted {
                     // Quick Aspect Ratio Selector & Overlay Toggles
                     aspectRatioSelectorBar
 
@@ -26,7 +28,9 @@ public struct CreatorStudioView: View {
                     videoEditingViewport
 
                     // AI Neural Studio Action Deck
-                    neuralToolsDeck
+                    if viewModel.isAIStudioToolsEnabled {
+                        neuralToolsDeck
+                    }
 
                     // Multi-Track Spatial Timeline Scrubber
                     spatialTimelineScrubber
@@ -58,6 +62,25 @@ public struct CreatorStudioView: View {
     }
 
     // MARK: - Subviews
+
+    private var disabledModuleCard: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "slash.circle.fill")
+                .font(.system(size: 36))
+                .foregroundColor(.orange)
+
+            Text("Creator Studio Disabled Remotely")
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(.white)
+
+            Text("This dynamic module is currently disabled via Enterprise Remote Config.")
+                .font(.system(size: 12))
+                .foregroundColor(Color.white.opacity(0.7))
+                .multilineTextAlignment(.center)
+        }
+        .padding(24)
+        .obsidianGlassCard()
+    }
 
     private var studioHeaderBar: some View {
         VStack(spacing: 10) {
@@ -190,6 +213,12 @@ public struct CreatorStudioView: View {
                 Text("Filter: \(viewModel.activeFilter)")
                     .font(.system(size: 11, design: .monospaced))
                     .foregroundColor(ObsidianTheme.secondaryIndigo)
+
+                if let matte = viewModel.processedMatteUrl {
+                    Text("Matte Offloaded: \(matte)")
+                        .font(.system(size: 9, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.tertiaryEmerald)
+                }
             }
 
             // Floating AR Product Pin HUD
@@ -255,10 +284,10 @@ public struct CreatorStudioView: View {
 
                     Spacer()
 
-                    Button(action: { viewModel.captureVideoFrame() }) {
+                    Button(action: { viewModel.triggerBackgroundRemovalOffload() }) {
                         HStack(spacing: 4) {
-                            Image(systemName: "wand.and.stars")
-                            Text("Enhance")
+                            Image(systemName: "sparkles")
+                            Text(viewModel.isBackgroundRemovalProcessing ? "Offloading..." : "AI BG Matte")
                         }
                         .font(.system(size: 10, weight: .bold))
                         .foregroundColor(ObsidianTheme.primaryCyan)

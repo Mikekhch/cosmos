@@ -18,17 +18,26 @@ public struct HomeFeedView: View {
                 // Header Bar
                 headerView
 
-                // 1. Top Floating AI Executive Summary Pill
-                cortexSummaryPill
+                // Live Sync Status / Offline Fallback Banner
+                syncStatusBanner
 
-                // 2. Segmented Mode Switcher (Spatial Map, Video Feed, Articles)
-                modeSwitcherPicker
+                if !viewModel.isSpatialFeedEnabled {
+                    remoteDisabledBanner
+                } else if viewModel.isMaintenanceModeActive {
+                    maintenanceBanner
+                } else {
+                    // 1. Top Floating AI Executive Summary Pill
+                    cortexSummaryPill
 
-                // 3. Learn-to-Earn ($L2E) Token Counter & Live Progress HUD
-                vaultProgressCard
+                    // 2. Segmented Mode Switcher (Spatial Map, Video Feed, Articles)
+                    modeSwitcherPicker
 
-                // 4. Feed Content Section
-                feedPostsSection
+                    // 3. Learn-to-Earn ($L2E) Token Counter & Live Progress HUD
+                    vaultProgressCard
+
+                    // 4. Feed Content Section
+                    feedPostsSection
+                }
             }
             .padding(.horizontal, 16)
             .padding(.top, 10)
@@ -120,6 +129,75 @@ public struct HomeFeedView: View {
                 }
             }
         }
+    }
+
+    private var syncStatusBanner: some View {
+        Group {
+            if viewModel.syncStatus != .synced {
+                HStack(spacing: 8) {
+                    Image(systemName: viewModel.syncStatus == .offline ? "wifi.slash" : "exclamationmark.triangle.fill")
+                        .font(.system(size: 12))
+                        .foregroundColor(.orange)
+
+                    Text(viewModel.syncErrorMessage ?? viewModel.syncStatus.rawValue)
+                        .font(.system(size: 11, design: .monospaced))
+                        .foregroundColor(.white)
+
+                    Spacer()
+
+                    Button(action: { viewModel.retrySync() }) {
+                        Text("Retry Sync")
+                            .font(.system(size: 10, weight: .bold, design: .monospaced))
+                            .foregroundColor(ObsidianTheme.primaryCyan)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(ObsidianTheme.primaryCyan.opacity(0.15))
+                            .cornerRadius(10)
+                    }
+                }
+                .padding(10)
+                .background(Color.orange.opacity(0.15))
+                .cornerRadius(14)
+            }
+        }
+    }
+
+    private var remoteDisabledBanner: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "eye.slash.fill")
+                .font(.system(size: 36))
+                .foregroundColor(.orange)
+
+            Text("Spatial Canvas Feed Temporarily Disabled")
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(.white)
+
+            Text("Remote administrators have temporarily paused live feed streaming for protocol upgrades.")
+                .font(.system(size: 12))
+                .foregroundColor(Color.white.opacity(0.7))
+                .multilineTextAlignment(.center)
+        }
+        .padding(24)
+        .obsidianGlassCard()
+    }
+
+    private var maintenanceBanner: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "wrench.and.screwdriver.fill")
+                .font(.system(size: 36))
+                .foregroundColor(ObsidianTheme.primaryCyan)
+
+            Text("Network Maintenance in Progress")
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(.white)
+
+            Text("Cosmos Spatial Network is under scheduled maintenance. Real-time sync will resume shortly.")
+                .font(.system(size: 12))
+                .foregroundColor(Color.white.opacity(0.7))
+                .multilineTextAlignment(.center)
+        }
+        .padding(24)
+        .obsidianGlassCard()
     }
 
     private var cortexSummaryPill: some View {

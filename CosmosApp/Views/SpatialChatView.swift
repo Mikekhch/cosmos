@@ -18,17 +18,21 @@ public struct SpatialChatView: View {
                 // 1. Spatial Call Telemetry Header
                 callTelemetryHeader
 
-                // 2. Spatial Holographic Telemetry Viewport
-                spatialHolographicViewport
+                if !viewModel.isE2EESpatialChatEnabled {
+                    disabledChatCard
+                } else {
+                    // 2. Spatial Holographic Telemetry Viewport
+                    spatialHolographicViewport
 
-                // 3. Co-Watch Stage Card
-                coWatchStageCard
+                    // 3. Co-Watch Stage Card
+                    coWatchStageCard
 
-                // 4. Sentiment Stream & In-Chat VIP Drop
-                sentimentStreamSection
+                    // 4. Sentiment Stream & In-Chat VIP Drop
+                    sentimentStreamSection
 
-                // 5. E2EE Input Bar Dock
-                e2eeInputDock
+                    // 5. E2EE Input Bar Dock
+                    e2eeInputDock
+                }
             }
             .padding(.horizontal, 16)
             .padding(.top, 10)
@@ -47,6 +51,25 @@ public struct SpatialChatView: View {
     }
 
     // MARK: - Subviews
+
+    private var disabledChatCard: some View {
+        VStack(spacing: 14) {
+            Image(systemName: "lock.slash.fill")
+                .font(.system(size: 36))
+                .foregroundColor(.orange)
+
+            Text("Spatial Chat Stream Paused")
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(.white)
+
+            Text("E2EE Messenger module is temporarily offline via Enterprise Remote Config.")
+                .font(.system(size: 12))
+                .foregroundColor(Color.white.opacity(0.7))
+                .multilineTextAlignment(.center)
+        }
+        .padding(24)
+        .obsidianGlassCard()
+    }
 
     private var callTelemetryHeader: some View {
         VStack(spacing: 10) {

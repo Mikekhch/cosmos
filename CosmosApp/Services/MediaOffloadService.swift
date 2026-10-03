@@ -2,7 +2,7 @@
 //  MediaOffloadService.swift
 //  CosmosApp
 //
-//  Server-Side Media Processing Dispatcher (FFmpeg / Cloud Functions Offload)
+//  Server-Side Media Processing Dispatcher (FFmpeg, AI Background Removal & Cloud Functions Offload)
 //
 
 import Foundation
@@ -35,7 +35,7 @@ public class MediaOffloadService: ObservableObject {
         AppLogger.shared.log("MediaOffloadService: Submitting file '\(fileName)' (\(fileSizeBytes / 1024) KB) for FFmpeg server offloading...", level: .info)
 
         // Simulate background upload & server Cloud Function execution
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) { [weak self] in
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.8) { [weak self] in
             guard let self = self else { return }
 
             // Server FFmpeg reduces file size by ~65% via H.265/AV1 transcoding & thumbnail extract
@@ -60,6 +60,22 @@ public class MediaOffloadService: ObservableObject {
 
                     completion(.success(self.activeJobs[index]))
                 }
+            }
+        }
+    }
+
+    /// Submits media to Cloud Function for AI Neural Background Removal
+    public func submitBackgroundRemovalOffload(
+        mediaId: String,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        AppLogger.shared.log("MediaOffloadService: Submitting media ID '\(mediaId)' for AI background removal offloading...", level: .info)
+
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
+            let matteUrl = "https://cdn.cosmos.app/mattes/\(mediaId)_alpha.mov"
+            DispatchQueue.main.async {
+                AppLogger.shared.log("MediaOffloadService: AI Background removal completed for '\(mediaId)'. Matte URL: \(matteUrl)", level: .info)
+                completion(.success(matteUrl))
             }
         }
     }
