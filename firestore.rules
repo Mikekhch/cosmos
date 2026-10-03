@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != nil;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAppCheckVerified() {
+      // Enforces Firebase App Check boundary protection
+      return request.auth.token.firebase.app_check == true || request.app != nil;
+    }
+
+    function isValidMessageSchema() {
+      let data = request.resource.data;
+      return data.keys().hasAll(['senderId', 'recipientId', 'encryptedContent', 'nonce', 'authTag', 'timestamp'])
+        && data.senderId == request.auth.uid
+        && data.encryptedContent is string
+        && data.encryptedContent.size() < 100000 // Payload size cap (100KB)
+        && data.nonce is string
+        && data.authTag is string;
+    }
+
+    function isWithinMessageRateLimit() {
+      // Prevents message flooding / automated spam attacks
+      return request.time > resource.data.timestamp + duration.value(200, 'ms');
+    }
+
+    // User Profile Rules
+    match /users/{userId} {
+      allow read: if isAuthenticated() && isAppCheckVerified();
+      allow create, update: if isOwner(userId) && isAppCheckVerified();
+      allow delete: if false; // Anti-tamper: profile deletion must be processed via admin endpoint
+    }
+
+    // E2EE Messages Collection
+    match /messages/{messageId} {
+      allow read: if isAuthenticated()
+        && isAppCheckVerified()
+        && (resource.data.senderId == request.auth.uid || resource.data.recipientId == request.auth.uid);
+
+      allow create: if isAuthenticated()
+        && isAppCheckVerified()
+        && isValidMessageSchema();
+
+      allow update, delete: if false; // Immutable audit log & message tamper prevention
+    }
+
+    // Security Anomalies Collection (AI Surveillance & Client Threat Audits)
+    match /anomalies/{anomalyId} {
+      allow read: if false; // Admin/Cloud Function access only
+      allow create: if isAuthenticated()
+        && isAppCheckVerified()
+        && request.resource.data.keys().hasAll(['eventType', 'severity', 'timestamp', 'deviceId'])
+        && request.resource.data.deviceId is string;
+      allow update, delete: if false;
+    }
+  }
+}
