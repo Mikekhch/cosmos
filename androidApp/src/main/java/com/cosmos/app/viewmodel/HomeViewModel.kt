@@ -18,4 +18,14 @@ class HomeViewModel(
     init {
         syncEngine.startRealtimeListeners()
     }
+
+    fun sendMessage(text: String) {
+        val newMsg = Message(
+            id = System.currentTimeMillis().toString(),
+            senderId = "User_Node_Alpha",
+            text = text,
+            timestamp = System.currentTimeMillis()
+        )
+        repository.addMessage(newMsg)
+    }
 }
