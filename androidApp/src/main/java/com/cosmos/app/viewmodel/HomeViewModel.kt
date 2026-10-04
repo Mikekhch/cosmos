@@ -18,4 +18,15 @@ class HomeViewModel(
     init {
         syncEngine.startRealtimeListeners()
     }
+
+    fun publishMessage(senderId: String, text: String) {
+        val newMessage = Message(
+            id = "msg_${System.currentTimeMillis()}",
+            senderId = senderId,
+            text = text,
+            timestamp = System.currentTimeMillis()
+        )
+        repository.addMessage(newMessage)
+        syncEngine.publishMessage(newMessage)
+    }
 }

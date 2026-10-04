@@ -20,6 +20,10 @@ class FirestoreSyncEngine {
         _syncStatus.value = SyncStatus.CONNECTED
     }
 
+    fun publishMessage(message: Message) {
+        _incomingMessages.value = _incomingMessages.value + message
+    }
+
     fun simulateNetworkConnectivityChange(isConnected: Boolean) {
         _syncStatus.value = if (isConnected) SyncStatus.CONNECTED else SyncStatus.OFFLINE
     }
