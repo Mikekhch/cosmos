@@ -7,8 +7,8 @@ import com.cosmos.app.data.Repository
 import com.cosmos.app.sync.FirestoreSyncEngine
 import kotlinx.coroutines.flow.StateFlow
 
-class HomeViewModel(
-    private val repository: Repository = Repository(),
+open class HomeViewModel(
+    val repository: Repository = Repository(),
     val syncEngine: FirestoreSyncEngine = FirestoreSyncEngine(),
     val remoteConfigManager: RemoteConfigManager = RemoteConfigManager()
 ) : ViewModel() {
@@ -17,5 +17,15 @@ class HomeViewModel(
 
     init {
         syncEngine.startRealtimeListeners()
+    }
+
+    fun sendMessage(text: String, senderId: String = "SovereignNode") {
+        val message = Message(
+            id = "msg_${System.currentTimeMillis()}",
+            senderId = senderId,
+            text = text,
+            timestamp = System.currentTimeMillis()
+        )
+        repository.addMessage(message)
     }
 }
