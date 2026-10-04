@@ -13,12 +13,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.cosmos.app.sync.SyncStatus
 import com.cosmos.app.viewmodel.HomeViewModel
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = HomeViewModel()) {
     val messages by viewModel.messages.collectAsState()
     val configState by viewModel.remoteConfigManager.configState.collectAsState()
+    val syncStatus by viewModel.syncEngine.syncStatus.collectAsState()
 
     Column(
         modifier = Modifier
@@ -26,12 +28,30 @@ fun HomeScreen(viewModel: HomeViewModel = HomeViewModel()) {
             .background(Color(0xFF0F131C))
             .padding(16.dp)
     ) {
-        Text(
-            text = "COSMOS MESH",
-            color = Color(0xFF00F0FF),
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "COSMOS MESH",
+                color = Color(0xFF00F0FF),
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Surface(
+                color = if (syncStatus == SyncStatus.CONNECTED) Color(0xFF00FF66).copy(alpha = 0.2f) else Color(0xFFFF3366).copy(alpha = 0.2f),
+                shape = RoundedCornerShape(8.dp)
+            ) {
+                Text(
+                    text = if (syncStatus == SyncStatus.CONNECTED) "● REALTIME DB LIVE" else "○ OFFLINE",
+                    color = if (syncStatus == SyncStatus.CONNECTED) Color(0xFF00FF66) else Color(0xFFFF3366),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(12.dp))
 
@@ -52,6 +72,13 @@ fun HomeScreen(viewModel: HomeViewModel = HomeViewModel()) {
                     color = Color(0xFFB9CACB),
                     fontSize = 12.sp
                 )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = "Spatial Feed: ${if (configState.isSpatialFeedEnabled) "ENABLED" else "DISABLED"}",
+                    color = if (configState.isSpatialFeedEnabled) Color(0xFF00F0FF) else Color(0xFFFF3366),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
 
@@ -66,15 +93,30 @@ fun HomeScreen(viewModel: HomeViewModel = HomeViewModel()) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(messages) { msg ->
-                Card(
-                    shape = RoundedCornerShape(12.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color(0xFF1C2028))
-                ) {
-                    Column(modifier = Modifier.padding(12.dp)) {
-                        Text(text = msg.senderId, color = Color(0xFF00F0FF), fontWeight = FontWeight.Bold)
-                        Text(text = msg.text, color = Color.White)
+        if (!configState.isSpatialFeedEnabled) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Spatial Feed has been dynamically disabled via Remote Config.",
+                    color = Color(0xFFFF3366),
+                    fontWeight = FontWeight.Medium
+                )
+            }
+        } else {
+            LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                items(messages) { msg ->
+                    Card(
+                        shape = RoundedCornerShape(12.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFF1C2028))
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text(text = msg.senderId, color = Color(0xFF00F0FF), fontWeight = FontWeight.Bold)
+                            Text(text = msg.text, color = Color.White)
+                        }
                     }
                 }
             }

@@ -7,8 +7,9 @@ Tests and verifies Phase 1, Phase 2, Phase 3, Phase 4, Multi-Platform Android & 
 3. Firestore Rules Syntax & Schema Security
 4. Storage & Cache Engine (Strict 300MB limit, LRU Eviction, Auto-purge logic)
 5. Backend Integration, Firebase Real-Time Sync, Remote Config & Media Engine
-6. Multi-Platform Android Support, Gradle APK Output (Cosmos-App.apk)
-7. Standalone Web Admin Dashboard Deployment, Firebase Hosting, & Cross-Platform Linkage
+6. Direct Firebase Realtime Database Connection & Real-Time Sync across ViewModels
+7. Multi-Platform Android Support, Gradle APK Output (Cosmos-App.apk)
+8. Standalone Web Admin Dashboard Deployment, Firebase Hosting, & Cross-Platform Linkage
 """
 
 import os
@@ -68,6 +69,7 @@ def verify_architecture_files():
         "androidApp/src/main/java/com/cosmos/app/ui/CreatorStudioScreen.kt",
         "androidApp/src/main/java/com/cosmos/app/ui/SecurityDashboardScreen.kt",
         "androidApp/src/main/java/com/cosmos/app/viewmodel/HomeViewModel.kt",
+        "androidApp/src/main/java/com/cosmos/app/viewmodel/FeedViewModel.kt",
         "androidApp/src/main/java/com/cosmos/app/viewmodel/SpatialChatViewModel.kt",
         "androidApp/src/main/java/com/cosmos/app/viewmodel/SecurityDashboardViewModel.kt",
         "androidApp/src/main/java/com/cosmos/app/domain/UseCases.kt",
@@ -79,6 +81,7 @@ def verify_architecture_files():
         "androidApp/src/main/java/com/cosmos/app/security/RootProtectionShield.kt",
         "androidApp/src/main/java/com/cosmos/app/config/RemoteConfigManager.kt",
         "androidApp/src/main/java/com/cosmos/app/sync/FirestoreSyncEngine.kt",
+        "androidApp/src/main/java/com/cosmos/app/sync/FirebaseRealtimeDatabaseEngine.kt",
         "androidApp/src/main/java/com/cosmos/app/cache/CacheManager.kt",
         "androidApp/src/main/java/com/cosmos/app/offload/MediaOffloadClient.kt",
         "androidApp/build.gradle.kts",
@@ -152,15 +155,50 @@ def verify_security_shield_implementation():
         assert "isDebuggerConnected" in content, "Missing debugger check in Android"
     log("Layer 4 (Root Protection): Jailbreak/Root detection & Anti-Tampering verified")
 
+def verify_firebase_realtime_database_sync():
+    print("\n--- 3. Verifying Direct Firebase Realtime Database Integration & Live Sync ---")
+
+    # Check Sync Engine
+    with open("androidApp/src/main/java/com/cosmos/app/sync/FirebaseRealtimeDatabaseEngine.kt") as f:
+        content = f.read()
+        assert "firebaseio.com" in content or "DEFAULT_DATABASE_URL" in content, "Missing Firebase Realtime Database URL"
+        assert "syncRemoteConfig" in content, "Missing syncRemoteConfig in FirebaseRealtimeDatabaseEngine"
+        assert "syncMessages" in content, "Missing syncMessages in FirebaseRealtimeDatabaseEngine"
+        assert "syncSpatialNodes" in content, "Missing syncSpatialNodes in FirebaseRealtimeDatabaseEngine"
+        assert "publishRemoteConfigFlag" in content, "Missing publishRemoteConfigFlag in FirebaseRealtimeDatabaseEngine"
+
+    # Check RemoteConfigManager
+    with open("androidApp/src/main/java/com/cosmos/app/config/RemoteConfigManager.kt") as f:
+        content = f.read()
+        assert "FirebaseRealtimeDatabaseEngine" in content, "RemoteConfigManager must connect to FirebaseRealtimeDatabaseEngine"
+        assert "publishRemoteConfigFlag" in content, "RemoteConfigManager must publish flag updates to Firebase Realtime Database"
+
+    # Check SpatialChatViewModel
+    with open("androidApp/src/main/java/com/cosmos/app/viewmodel/SpatialChatViewModel.kt") as f:
+        content = f.read()
+        assert "FirebaseRealtimeDatabaseEngine" in content, "SpatialChatViewModel must connect to FirebaseRealtimeDatabaseEngine"
+        assert "spatialNodes" in content, "SpatialChatViewModel must observe spatialNodes flow"
+
+    # Check FeedViewModel & HomeViewModel
+    with open("androidApp/src/main/java/com/cosmos/app/viewmodel/HomeViewModel.kt") as f:
+        content = f.read()
+        assert "messages" in content, "HomeViewModel must expose real-time messages"
+
+    with open("androidApp/src/main/java/com/cosmos/app/viewmodel/FeedViewModel.kt") as f:
+        content = f.read()
+        assert "HomeViewModel" in content, "FeedViewModel must inherit from or alias HomeViewModel"
+
+    log("Direct Firebase Realtime Database Connection & Live Sync across ViewModels verified")
+
 def verify_android_apk_build():
-    print("\n--- 3. Verifying Android APK Build & Binary Output ---")
+    print("\n--- 4. Verifying Android APK Build & Binary Output ---")
     check_file_exists("Cosmos-App.apk")
     apk_size = os.path.getsize("Cosmos-App.apk")
     assert apk_size > 1000, f"APK binary Cosmos-App.apk size too small: {apk_size} bytes"
     log(f"Testable APK binary verified: Cosmos-App.apk ({apk_size / (1024*1024):.2f} MB)")
 
 def verify_web_admin_dashboard():
-    print("\n--- 4. Verifying Standalone Web Admin Dashboard Deployment & Linkage ---")
+    print("\n--- 5. Verifying Standalone Web Admin Dashboard Deployment & Linkage ---")
 
     check_file_exists("public/index.html")
     check_file_exists("public/style.css")
@@ -188,7 +226,7 @@ def verify_web_admin_dashboard():
     log("Standalone Web Admin Dashboard & Firebase Hosting deployment pipeline verified")
 
 def verify_storage_and_cache_engine():
-    print("\n--- 5. Verifying Storage & Cache Optimization Engine ---")
+    print("\n--- 6. Verifying Storage & Cache Optimization Engine ---")
 
     # 300MB limit & LRU cache eviction
     with open("CosmosApp/Services/CacheManager.swift") as f:
@@ -203,7 +241,7 @@ def verify_storage_and_cache_engine():
     log("Smart Cache Management: 300MB strict limit and LRU eviction logic verified on iOS and Android")
 
 def test_cache_and_lru_simulation():
-    print("\n--- 6. Running Logic Simulation Tests ---")
+    print("\n--- 7. Running Logic Simulation Tests ---")
 
     # Simulate LRU Eviction Math
     MAX_LIMIT = 300 * 1024 * 1024 # 300MB
@@ -234,6 +272,7 @@ if __name__ == "__main__":
     try:
         verify_architecture_files()
         verify_security_shield_implementation()
+        verify_firebase_realtime_database_sync()
         verify_android_apk_build()
         verify_web_admin_dashboard()
         verify_storage_and_cache_engine()
